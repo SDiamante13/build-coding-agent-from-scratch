@@ -1,7 +1,7 @@
 # Build a Coding Agent from Scratch
 
 You use AI agents every day. Under the hood, every one of them is a while loop, a language
-model, and some tools. Over ten short iterations you will build one — no frameworks — until it
+model, and some tools. Over ten short lessons you will build one — no frameworks — until it
 can read your code, change it, run your tests, and drive a kata test-first.
 
 ## Setup
@@ -65,7 +65,7 @@ test-first. It writes the tests, makes them pass, and runs them itself.
 ## Get started
 
 Open your coding agent in this directory and say **"coach me"**. It reads the ledger in
-[`docs/specs`](docs/specs), finds the first iteration that is not done, and walks you through it
+[`docs/specs`](docs/specs), finds the first lesson that is not done, and walks you through it
 one small step at a time. If you would rather it wrote the code, say **"jfdi"**.
 
 Run the agent you are building at any point:
@@ -74,7 +74,7 @@ Run the agent you are building at any point:
 npm start
 ```
 
-Check your work against the iteration you are on:
+Check your work against the lesson you are on:
 
 ```sh
 npm test
@@ -82,13 +82,13 @@ npm test
 
 ## Falling behind
 
-Every iteration has a tag on the `solution` branch. Your own work stays where it is:
+Every lesson has a tag on the `solution` branch. Your own work stays where it is:
 
 ```sh
 git checkout lesson-4-read-file
 ```
 
-Look at what changed between two of them to see an iteration in one screen:
+Look at what changed between two of them to see a lesson in one screen:
 
 ```sh
 git diff lesson-3-conversation lesson-4-read-file
@@ -96,8 +96,9 @@ git diff lesson-3-conversation lesson-4-read-file
 
 ## Repo map
 
-- `docs/specs/` — the ledger and one spec per iteration
-- `src/` — what you build; empty until iteration 1
-- `test/` — an acceptance test per iteration, and the fake model they run against
+- `docs/specs/` — the ledger and one spec per lesson
+- `src/` — the agent you are growing; lesson 1 is already here
+- `test/` — an acceptance test per lesson, and the fake model they run against
+- `docs/slides.html` — the four screens used in the session
 - `kata/bowling/` — the finale
 - `sensors/` — authoring tooling for the maintainers. Not part of the workshop; ignore it.
