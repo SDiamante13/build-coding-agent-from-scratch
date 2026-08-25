@@ -74,6 +74,8 @@ Run the agent you are building at any point:
 npm start
 ```
 
+From lesson 2 on it keeps asking until you stop it. Ctrl-C or Ctrl-D both quit cleanly.
+
 Check your work against the lesson you are on:
 
 ```sh
