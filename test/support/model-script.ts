@@ -10,7 +10,9 @@ export type ToolCall = {
   readonly arguments: Readonly<Record<string, unknown>>;
 };
 
-export type Reply = { readonly says: string } | { readonly calls: readonly ToolCall[] };
+export type SpokenReply = { readonly says: string };
+export type ToolCallReply = { readonly calls: readonly ToolCall[] };
+export type Reply = SpokenReply | ToolCallReply;
 
 export function says(text: string): Reply {
   return { says: text };
@@ -24,7 +26,7 @@ export function tool(name: string, args: Record<string, unknown> = {}): ToolCall
   return { name, arguments: args };
 }
 
-function spoken(reply: Reply): boolean {
+function spoken(reply: Reply): reply is SpokenReply {
   return 'says' in reply;
 }
 
