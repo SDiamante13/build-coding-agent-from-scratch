@@ -19,8 +19,10 @@ whole of tool calling.
   it asked for.
 - Print the reply that comes back from the second request.
 - One tool call per turn is enough for this lesson.
-- `src/tools.ts` owns the tool: its schema, and running it. `src/llm.ts` owns the messages.
-  `src/index.ts` gains the `if`, and nothing else.
+- One file per tool: `src/tools/read-file.ts` owns this tool — the schema the model is sent,
+  and what happens when it is called. `src/tools/index.ts` owns the plumbing every tool shares.
+  Lessons 08 and 09 then add a file instead of growing one.
+- `src/llm.ts` owns the messages. `src/index.ts` gains the `if`, and nothing else.
 
 ## Example
 

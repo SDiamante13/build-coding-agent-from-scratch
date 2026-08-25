@@ -27,8 +27,8 @@ You: read src/index.ts, then read the files it imports
 → read_file {"path":"src/index.ts"}
 → read_file {"path":"src/cli.ts"}
 → read_file {"path":"src/llm.ts"}
-→ read_file {"path":"src/tools.ts"}
-Assistant: index.ts is the loop; cli.ts the terminal, llm.ts the model call, tools.ts the tool.
+→ read_file {"path":"src/tools/index.ts"}
+Assistant: index.ts is the loop; cli.ts the terminal, llm.ts the model call, tools/ the tools.
 ```
 
 Three requests, two rounds of tools, and the agent worked out the second round for itself.

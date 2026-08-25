@@ -15,8 +15,8 @@ its own `tool` message. Every call needs a reply, or the next request is malform
 - Send one `tool` message per call, each carrying the id of the call it answers.
 - Run the calls concurrently. Nothing in a reply waits on anything else in the same reply.
 - Print a line for each call, as in lesson 05.
-- `src/tools.ts` runs the list. `src/index.ts` changes from one call to all of them, and
-  nothing else.
+- `src/tools/index.ts` runs the list; the tool files themselves do not change. `src/index.ts`
+  changes from one call to all of them, and nothing else.
 
 ## Example
 
