@@ -1,0 +1,23 @@
+{
+  "name": "coding-agent-sensors",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Authoring tooling for this repository. Not part of the workshop.",
+  "scripts": {
+    "lint:sensor": "node scripts/lint-sensor.mjs",
+    "docs:sensor": "node scripts/docs-sensor.mjs",
+    "format": "prettier --config .prettierrc.json --ignore-path .prettierignore --ignore-unknown --write ..",
+    "check": "npm run lint:sensor && npm run docs:sensor",
+    "doctor": "node scripts/sensors-doctor.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "eslint-plugin-import": "^2.32.0",
+    "globals": "^17.11.0",
+    "prettier": "^3.9.6",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.67.0"
+  }
+}
