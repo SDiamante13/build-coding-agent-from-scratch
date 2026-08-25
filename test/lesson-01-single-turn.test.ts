@@ -14,7 +14,7 @@ describe('lesson 1: single turn', () => {
     });
     await model.close();
 
-    expect(session.output).toContain('The capital of France is Paris.');
+    expect(session.output).toContain('Assistant: The capital of France is Paris.');
     expect(session.exitCode).toBe(0);
   });
 

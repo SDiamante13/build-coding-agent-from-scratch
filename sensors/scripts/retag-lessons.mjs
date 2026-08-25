@@ -29,6 +29,12 @@ for (const { sha, tag } of lessons) {
   process.stdout.write(`${before === sha ? '  ok' : 'MOVED'}  ${tag} -> ${sha.slice(0, 7)}\n`);
 }
 
+const diverged = spawnSync('git', ['merge-base', '--is-ancestor', 'main', 'solution'], {
+  cwd: projectRoot,
+}).status !== 0;
+
+if (diverged) process.stdout.write('DIVERGED: main is not an ancestor of solution\n');
+
 const stale = git('tag', '--list', 'lesson-*')
   .split('\n')
   .filter(Boolean)
@@ -36,4 +42,4 @@ const stale = git('tag', '--list', 'lesson-*')
 
 if (stale.length > 0) process.stdout.write(`STALE tags with no commit: ${stale.join(', ')}\n`);
 
-process.exitCode = stale.length === 0 ? 0 : 1;
+process.exitCode = stale.length === 0 && !diverged ? 0 : 1;
