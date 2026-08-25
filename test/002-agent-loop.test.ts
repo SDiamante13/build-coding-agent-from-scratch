@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import { startFakeModel } from './support/fake-model.js';
+import { says } from './support/model-script.js';
 import { runAgent } from './support/run-agent.js';
 
 describe('iteration 2: agent loop', () => {
   it('answers every prompt until the input ends', async () => {
-    const model = await startFakeModel(['Paris.', 'Berlin.']);
+    const model = await startFakeModel([says('Paris.'), says('Berlin.')]);
 
     const session = await runAgent({
       model,

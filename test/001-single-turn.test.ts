@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import { startFakeModel } from './support/fake-model.js';
+import { says } from './support/model-script.js';
 import { runAgent } from './support/run-agent.js';
 
 describe('iteration 1: single turn', () => {
   it('answers one prompt and exits', async () => {
-    const model = await startFakeModel(['The capital of France is Paris.']);
+    const model = await startFakeModel([says('The capital of France is Paris.')]);
 
     const session = await runAgent({
       model,
@@ -18,7 +19,7 @@ describe('iteration 1: single turn', () => {
   });
 
   it('refuses to start without an API key', async () => {
-    const model = await startFakeModel(['never asked']);
+    const model = await startFakeModel([says('never asked')]);
 
     const session = await runAgent({ model, input: 'hello\n', apiKey: null });
     await model.close();
