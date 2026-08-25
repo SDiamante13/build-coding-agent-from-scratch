@@ -7,6 +7,7 @@ import { completionFor, type Reply } from './model-script.js';
 export type Message = {
   readonly role: string;
   readonly content: string | null;
+  readonly tool_call_id?: string;
 };
 
 export type ToolSchema = {
