@@ -18,6 +18,7 @@ shape of the code around it did.
 - Do not send earlier prompts or replies.
 - Stop when the input ends, or when the user presses Ctrl-C.
 - Neither way of stopping prints a stack trace.
+- Change `src/index.ts` only. `cli.ts` and `llm.ts` already do their part.
 
 ## Example
 

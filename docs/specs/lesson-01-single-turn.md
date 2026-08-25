@@ -2,13 +2,26 @@
 
 Ask for one prompt, send it to the model, print the reply, and exit.
 
-This lesson is already built for you. Read the code in `src/index.ts` — it is the whole agent
-so far, and every later lesson grows out of it.
+This lesson is already built for you. Read `src/index.ts` first — it is six lines, and it is
+the whole agent. Then read the two files it leans on. Every later lesson grows out of these
+three.
 
 ## Key concept
 
 There is no magic underneath a coding agent. One turn is one HTTP request: you send messages,
 you get a message back. Everything else in this workshop is built on top of that single call.
+
+## The shape
+
+`src/index.ts` says what the agent does, and nothing about how. Terminal handling lives in
+`src/cli.ts`, the model call in `src/llm.ts`. Keep it that way — when a later lesson makes
+`index.ts` hard to read at a glance, the new detail belongs in one of the other two.
+
+| File           | Owns                                                     |
+| -------------- | -------------------------------------------------------- |
+| `src/index.ts` | the agent, in the fewest lines that still say it          |
+| `src/cli.ts`   | reading a prompt, printing a reply, ending on Ctrl-D      |
+| `src/llm.ts`   | the API key, the model, and the HTTP call                 |
 
 ## Requirements
 

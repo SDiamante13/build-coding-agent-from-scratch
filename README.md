@@ -97,7 +97,8 @@ git diff lesson-3-conversation lesson-4-read-file
 ## Repo map
 
 - `docs/specs/` — the ledger and one spec per lesson
-- `src/` — the agent you are growing; lesson 1 is already here
+- `src/` — the agent you are growing. `index.ts` is the agent, `cli.ts` the terminal,
+  `llm.ts` the model call. Lesson 1 is already here
 - `test/` — an acceptance test per lesson, and the fake model they run against
 - `docs/slides.html` — the four screens used in the session
 - `kata/bowling/` — the finale
