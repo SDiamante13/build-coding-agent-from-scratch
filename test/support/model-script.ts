@@ -1,9 +1,4 @@
-// The vocabulary a test uses to script what the model will say back.
-//
-//   startFakeModel([
-//     calls(tool('read_file', { path: 'package.json' })),
-//     says('This project is called build-coding-agent-from-scratch.'),
-//   ]);
+// The vocabulary a test uses to script what the model says back.
 
 export type ToolCall = {
   readonly name: string;
