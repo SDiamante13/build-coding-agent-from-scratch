@@ -18,21 +18,25 @@ cp .env.example .env
 
 ```sh
 OPENROUTER_API_KEY=sk-or-...
-OPENROUTER_MODEL=z-ai/glm-5.2:free
+OPENROUTER_MODEL=minimax/minimax-m3:free
 ```
 
 That is the whole setup. `npm start` reads `.env` for you.
 
 ### Choosing a model
 
-The default costs nothing, so you can build the whole agent without spending anything. Any
-model that supports tool calling works — swap `OPENROUTER_MODEL` and nothing else changes.
+The default costs nothing, so you can build the whole agent without spending anything. Free
+models are rate limited, though, so if replies start failing put a few dollars of credit on
+your OpenRouter account and switch to `google/gemma-4-31b-it` — it is the fastest of the four
+and a whole workshop costs cents. Any model that supports tool calling works; swap
+`OPENROUTER_MODEL` and nothing else changes.
 
-| Model                     | Tools | Context | Notes                                    |
-| ------------------------- | ----- | ------- | ---------------------------------------- |
-| `z-ai/glm-5.2:free`       | yes   | 256K    | the default — free, and good enough      |
-| `google/gemini-3.7-flash` | yes   | 1M      | faster, and cheap rather than free       |
-| `openai/gpt-5.6-luna`     | yes   | 1M      | strongest once the agent runs many tools |
+| Model                     | Tools | Context | Cost per 1M in/out | Notes                                     |
+| ------------------------- | ----- | ------- | ------------------ | ----------------------------------------- |
+| `minimax/minimax-m3:free` | yes   | 1M      | free               | the default — costs nothing, rate limited |
+| `google/gemma-4-31b-it`   | yes   | 256K    | $0.10 / $0.34      | the fastest, and cheap enough to not care |
+| `google/gemini-3.7-flash` | yes   | 1M      | $0.38 / $1.88      | a good all-rounder                        |
+| `openai/gpt-5.6-luna`     | yes   | 1M      | $0.20 / $1.20      | strongest once the agent runs many tools  |
 
 Prices and context limits for every model are at
 [openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low).

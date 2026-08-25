@@ -7,7 +7,7 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const model = process.env.OPENROUTER_MODEL ?? 'z-ai/glm-5.2:free';
+const model = process.env.OPENROUTER_MODEL ?? 'minimax/minimax-m3:free';
 const openRouter = new OpenRouter({ apiKey });
 
 export async function complete(userInput: string): Promise<string> {

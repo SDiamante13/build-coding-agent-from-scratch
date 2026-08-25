@@ -29,7 +29,7 @@ you get a message back. Everything else in this workshop is built on top of that
 - Read `OPENROUTER_API_KEY` from the environment, via `.env`.
 - If the key is missing, print a short error and exit non-zero.
 - Ask the user for one prompt, labelled `You:`.
-- Use `OPENROUTER_MODEL`, or `z-ai/glm-5.2:free` if it is unset.
+- Use `OPENROUTER_MODEL`, or `minimax/minimax-m3:free` if it is unset.
 - Print the reply, labelled `Assistant:`.
 - Exit after the reply.
 
