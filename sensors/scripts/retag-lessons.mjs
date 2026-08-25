@@ -42,4 +42,18 @@ const stale = git('tag', '--list', 'lesson-*')
 
 if (stale.length > 0) process.stdout.write(`STALE tags with no commit: ${stale.join(', ')}\n`);
 
-process.exitCode = stale.length === 0 && !diverged ? 0 : 1;
+const healthy = stale.length === 0 && !diverged;
+
+// A rebase moves every lesson tag, and git refuses to move a published tag without --force.
+if (process.argv.includes('--push') && healthy) {
+  const names = lessons.map(({ tag }) => tag);
+  const pushed = spawnSync('git', ['push', '--force', 'origin', ...names], {
+    cwd: projectRoot,
+    encoding: 'utf8',
+  });
+
+  process.stdout.write(pushed.status === 0 ? `pushed ${names.length} tags\n` : pushed.stderr);
+  process.exitCode = pushed.status === 0 ? 0 : 1;
+} else {
+  process.exitCode = healthy ? 0 : 1;
+}
