@@ -161,7 +161,6 @@
     </svg>
     <figcaption>
       The model is stateless — it remembers nothing between calls. <b>Every turn re-sends the entire conversation.</b>
-      Lesson 2 adds the loop; lesson 3 stops throwing the array away between turns.
     </figcaption>
   </figure>
 </section>
@@ -238,11 +237,6 @@
 
       <text x="634" y="415" text-anchor="middle" font-size="13.5" fill="currentColor" opacity=".72">one question from you · two requests over the wire · one tool run locally, by you</text>
     </svg>
-    <figcaption>
-      Nothing here is special to tools — call 2 is an ordinary request that happens to carry a
-      <code>role: "tool"</code> message. <b>And it can happen again:</b> if call 2 asks for another tool,
-      you run it and call a third time. That loop is lesson 7.
-    </figcaption>
   </figure>
 </section>
 
@@ -290,9 +284,11 @@
       <div class="card hero">
         <h3>Broke it? Nothing is lost.</h3>
         <p>Every lesson is a tag on the <code>solution</code> branch. Your own work stays exactly where it is.</p>
-        <pre><span class="c"># a working version of any lesson</span>
+        <pre><span class="c"># see every lesson</span>
+git tag -l "lesson-*"
+<span class="c"># check out a working version of one</span>
 git checkout lesson-4-read-file
-<span class="c"># or one lesson as a single diff</span>
+<span class="c"># or read one lesson as a single diff</span>
 git diff lesson-3-conversation lesson-4-read-file</pre>
       </div>
 
