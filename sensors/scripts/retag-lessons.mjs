@@ -35,6 +35,16 @@ const diverged = spawnSync('git', ['merge-base', '--is-ancestor', 'main', 'solut
 
 if (diverged) process.stdout.write('DIVERGED: main is not an ancestor of solution\n');
 
+// solution carries lesson commits and nothing else, so every tag diff is pure implementation.
+const strays = git('log', '--format=%h %s', 'main..solution')
+  .split('\n')
+  .filter(Boolean)
+  .filter((line) => !SUBJECT.test(line.slice(line.indexOf(' ') + 1)));
+
+for (const stray of strays) {
+  process.stdout.write(`STRAY on solution (belongs on main): ${stray}\n`);
+}
+
 const stale = git('tag', '--list', 'lesson-*')
   .split('\n')
   .filter(Boolean)
@@ -42,7 +52,7 @@ const stale = git('tag', '--list', 'lesson-*')
 
 if (stale.length > 0) process.stdout.write(`STALE tags with no commit: ${stale.join(', ')}\n`);
 
-const healthy = stale.length === 0 && !diverged;
+const healthy = stale.length === 0 && !diverged && strays.length === 0;
 
 // A rebase moves every lesson tag, and git refuses to move a published tag without --force.
 if (process.argv.includes('--push') && healthy) {
