@@ -6,32 +6,36 @@ can read your code, change it, run your tests, and drive a kata test-first.
 
 ## Setup
 
-Node.js and git are assumed.
+Node.js 22 or newer, and git.
 
 ```sh
 npm install
+cp .env.example .env
 ```
 
-Get a key from [OpenRouter](https://openrouter.ai/) and put it in `.env`:
+`.env` is gitignored, so your key stays on your machine. Open it and paste in a key from
+[openrouter.ai/keys](https://openrouter.ai/keys):
 
 ```sh
 OPENROUTER_API_KEY=sk-or-...
-OPENROUTER_MODEL=google/gemini-3.7-flash
+OPENROUTER_MODEL=z-ai/glm-5.2:free
 ```
+
+That is the whole setup. `npm start` reads `.env` for you.
 
 ### Choosing a model
 
-Any model that supports tool calling will work. These three are known to behave:
+The default costs nothing, so you can build the whole agent without spending anything. Any
+model that supports tool calling works — swap `OPENROUTER_MODEL` and nothing else changes.
 
-| Model                     | Notes                          |
-| ------------------------- | ------------------------------ |
-| `google/gemini-3.7-flash` | fast and cheap; a good default |
-| `openai/gpt-5.6-luna`     | strongest at multi-step work   |
-| `z-ai/glm-5.2:free`       | free tier; slower              |
+| Model                     | Tools | Context | Notes                                     |
+| ------------------------- | ----- | ------- | ----------------------------------------- |
+| `z-ai/glm-5.2:free`       | yes   | 256K    | the default — free, and good enough        |
+| `google/gemini-3.7-flash` | yes   | 1M      | faster, and cheap rather than free         |
+| `openai/gpt-5.6-luna`     | yes   | 1M      | strongest once the agent runs many tools   |
 
 Prices and context limits for every model are at
-[openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low). Switch by
-editing `OPENROUTER_MODEL` — nothing else changes.
+[openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low).
 
 ## The lessons
 
