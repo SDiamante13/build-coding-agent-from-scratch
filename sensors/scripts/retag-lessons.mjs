@@ -22,11 +22,23 @@ const lessons = git('log', '--reverse', '--format=%H\t%s', 'solution')
   .filter(({ match }) => match)
   .map(({ sha, match }) => ({ sha, tag: `lesson-${match[1]}-${slug(match[2])}` }));
 
+// A lesson that ships on main is "where you start", so its tag follows main's tip. Pinning it
+// to the commit that wrote it would leak every later main commit into the next lesson's diff.
+function onMain(sha) {
+  return (
+    spawnSync('git', ['merge-base', '--is-ancestor', sha, 'main'], { cwd: projectRoot })
+      .status === 0
+  );
+}
+
+const mainTip = git('rev-parse', 'main');
+
 for (const { sha, tag } of lessons) {
+  const target = onMain(sha) ? mainTip : sha;
   const before = git('rev-parse', tag);
 
-  git('tag', '-f', tag, sha);
-  process.stdout.write(`${before === sha ? '  ok' : 'MOVED'}  ${tag} -> ${sha.slice(0, 7)}\n`);
+  git('tag', '-f', tag, target);
+  process.stdout.write(`${before === target ? '  ok' : 'MOVED'}  ${tag} -> ${target.slice(0, 7)}\n`);
 }
 
 const diverged = spawnSync('git', ['merge-base', '--is-ancestor', 'main', 'solution'], {
