@@ -28,11 +28,11 @@ That is the whole setup. `npm start` reads `.env` for you.
 The default costs nothing, so you can build the whole agent without spending anything. Any
 model that supports tool calling works — swap `OPENROUTER_MODEL` and nothing else changes.
 
-| Model                     | Tools | Context | Notes                                     |
-| ------------------------- | ----- | ------- | ----------------------------------------- |
-| `z-ai/glm-5.2:free`       | yes   | 256K    | the default — free, and good enough        |
-| `google/gemini-3.7-flash` | yes   | 1M      | faster, and cheap rather than free         |
-| `openai/gpt-5.6-luna`     | yes   | 1M      | strongest once the agent runs many tools   |
+| Model                     | Tools | Context | Notes                                    |
+| ------------------------- | ----- | ------- | ---------------------------------------- |
+| `z-ai/glm-5.2:free`       | yes   | 256K    | the default — free, and good enough      |
+| `google/gemini-3.7-flash` | yes   | 1M      | faster, and cheap rather than free       |
+| `openai/gpt-5.6-luna`     | yes   | 1M      | strongest once the agent runs many tools |
 
 Prices and context limits for every model are at
 [openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low).
@@ -46,18 +46,18 @@ the arrow keys.
 Each lesson adds one capability, then runs into the wall that motivates the next one. That
 wall is the point: you feel the limitation before you hear the fix.
 
-| #   | Lesson                 | What you add                                     | What still hurts                                   |
-| --- | ---------------------- | ------------------------------------------------ | -------------------------------------------------- |
-| 1   | `single-turn`          | one API call, print the reply, exit               | you cannot ask a follow-up                          |
-| 2   | `agent-loop`           | the loop — prompt, reply, repeat                  | it forgets everything you just said                 |
-| 3   | `conversation`         | keep the messages and resend them                 | it cannot see your code                             |
-| 4   | `read-file`            | a tool: schema, dispatch, tool result             | ask for two files and one is silently dropped       |
-| 5   | `observability`        | a session log, and tool calls on screen           | now you can watch it drop the second one            |
-| 6   | `parallel-calls`       | run every tool call in the message                | it reads, then stops — it cannot act on what it saw |
-| 7   | `tool-call-loop`       | keep going until the model stops calling tools    | it understands your code but cannot change it       |
-| 8   | `edit-file`            | exact-match edits                                 | it edits blind — it cannot run the tests            |
-| 9   | `bash`                 | run commands, feed the output back                | powerful, but with no method                        |
-| 10  | `coding-system-prompt` | the prompt that makes it work test-first          | nothing — point it at the kata                      |
+| #   | Lesson                 | What you add                                   | What still hurts                                    |
+| --- | ---------------------- | ---------------------------------------------- | --------------------------------------------------- |
+| 1   | `single-turn`          | one API call, print the reply, exit            | you cannot ask a follow-up                          |
+| 2   | `agent-loop`           | the loop — prompt, reply, repeat               | it forgets everything you just said                 |
+| 3   | `conversation`         | keep the messages and resend them              | it cannot see your code                             |
+| 4   | `read-file`            | a tool: schema, dispatch, tool result          | ask for two files and one is silently dropped       |
+| 5   | `observability`        | a session log, and tool calls on screen        | now you can watch it drop the second one            |
+| 6   | `parallel-calls`       | run every tool call in the message             | it reads, then stops — it cannot act on what it saw |
+| 7   | `tool-call-loop`       | keep going until the model stops calling tools | it understands your code but cannot change it       |
+| 8   | `edit-file`            | exact-match edits                              | it edits blind — it cannot run the tests            |
+| 9   | `bash`                 | run commands, feed the output back             | powerful, but with no method                        |
+| 10  | `coding-system-prompt` | the prompt that makes it work test-first       | nothing — point it at the kata                      |
 
 **The finale:** point your agent at `kata/bowling` and ask it to build a bowling scorer
 test-first. It writes the tests, makes them pass, and runs them itself.
