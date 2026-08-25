@@ -3,18 +3,18 @@
 One spec per lesson. Work down the ledger: find the first row marked `Todo`, read its spec,
 build it, make its acceptance test pass, then mark it `Done`.
 
-| Lesson | Spec                                      | Status |
-| ------ | ----------------------------------------- | ------ |
-| 01     | [Single turn](lesson-01-single-turn.md)   | Done   |
-| 02     | [Agent loop](lesson-02-agent-loop.md)     | Todo   |
-| 03     | [Conversation](lesson-03-conversation.md) | Todo   |
-| 04     | [Read file](lesson-04-read-file.md)       | Todo   |
-| 05     | Observability                             | —      |
-| 06     | Parallel calls                            | —      |
-| 07     | Tool call loop                            | —      |
-| 08     | Edit file                                 | —      |
-| 09     | Bash                                      | —      |
-| 10     | Coding system prompt                      | —      |
+| Lesson | Spec                                        | Status |
+| ------ | ------------------------------------------- | ------ |
+| 01     | [Single turn](lesson-01-single-turn.md)     | Done   |
+| 02     | [Agent loop](lesson-02-agent-loop.md)       | Todo   |
+| 03     | [Conversation](lesson-03-conversation.md)   | Todo   |
+| 04     | [Read file](lesson-04-read-file.md)         | Todo   |
+| 05     | [Observability](lesson-05-observability.md) | Todo   |
+| 06     | Parallel calls                              | —      |
+| 07     | Tool call loop                              | —      |
+| 08     | Edit file                                   | —      |
+| 09     | Bash                                        | —      |
+| 10     | Coding system prompt                        | —      |
 
 Lesson 01 arrives already built, so you have a working agent to change on your very first
 step. A row marked `—` has no spec written yet.
