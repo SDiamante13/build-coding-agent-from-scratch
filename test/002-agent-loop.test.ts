@@ -1,0 +1,21 @@
+import { describe, expect, it } from 'vitest';
+
+import { startFakeModel } from './support/fake-model.js';
+import { runAgent } from './support/run-agent.js';
+
+describe('iteration 2: agent loop', () => {
+  it('answers every prompt until the input ends', async () => {
+    const model = await startFakeModel(['Paris.', 'Berlin.']);
+
+    const session = await runAgent({
+      model,
+      input: 'capital of France?\ncapital of Germany?\n',
+    });
+    await model.close();
+
+    expect(session.output).toContain('Paris.');
+    expect(session.output).toContain('Berlin.');
+    expect(model.requests).toHaveLength(2);
+    expect(session.exitCode).toBe(0);
+  });
+});
