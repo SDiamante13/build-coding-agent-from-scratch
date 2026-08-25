@@ -117,7 +117,7 @@
   <p class="sub">No framework, no orchestration engine. You keep a list of messages, you post it, you append what comes back.</p>
 
   <figure>
-    <svg viewBox="0 0 1000 300" role="img" aria-label="A cycle. Your terminal appends your prompt to a messages array. The whole array is posted to the model. The model's reply is appended to the same array, and printed back to the terminal.">
+    <svg viewBox="0 0 1100 300" role="img" aria-label="A cycle. You type What is the capital of France in your terminal; it is appended to a messages array whose last entry is always the user turn. The whole array is posted to the model. The reply is appended to the same array and printed back to the terminal.">
       <defs>
         <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <polygon points="0,0 10,5 0,10" fill="currentColor"/>
@@ -127,38 +127,37 @@
         </marker>
       </defs>
 
-      <rect x="24" y="106" width="196" height="104" rx="11" fill="none" stroke="currentColor" stroke-width="1.7"/>
-      <text x="122" y="142" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Your terminal</text>
-      <text x="122" y="168" text-anchor="middle" font-size="13.5" fill="currentColor" opacity=".72">You:  …</text>
-      <text x="122" y="190" text-anchor="middle" font-size="13.5" fill="currentColor" opacity=".72">Assistant:  …</text>
+      <rect x="20" y="106" width="250" height="104" rx="11" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <text x="145" y="136" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Your terminal</text>
+      <text x="34" y="166" font-size="11.5" fill="currentColor" opacity=".78">You: What is the capital of France?</text>
+      <text x="34" y="190" font-size="11.5" fill="currentColor" opacity=".78">Assistant: …</text>
 
-      <text x="500" y="44" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c2410c">this array IS the memory</text>
-      <rect x="390" y="60" width="220" height="196" rx="11" fill="none" stroke="#c2410c" stroke-width="2.4"/>
-      <text x="500" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#c2410c">messages[ ]</text>
-      <line x1="410" y1="102" x2="590" y2="102" stroke="#c2410c" stroke-width=".9" opacity=".38"/>
-      <text x="412" y="126" font-size="13" fill="currentColor" opacity=".82">user: "what is…"</text>
-      <text x="412" y="150" font-size="13" fill="currentColor" opacity=".82">assistant: "…"</text>
-      <text x="412" y="174" font-size="13" fill="currentColor" opacity=".82">user: "and…"</text>
-      <text x="412" y="198" font-size="13" fill="currentColor" opacity=".82">assistant: "…"</text>
-      <text x="412" y="230" font-size="12.5" fill="#c2410c" opacity=".85">↓ grows every single turn</text>
+      <text x="555" y="40" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c2410c">this array IS the memory</text>
+      <rect x="400" y="58" width="310" height="186" rx="11" fill="none" stroke="#c2410c" stroke-width="2.4"/>
+      <text x="555" y="84" text-anchor="middle" font-size="16" font-weight="700" fill="#c2410c">messages[ ]</text>
+      <line x1="420" y1="98" x2="690" y2="98" stroke="#c2410c" stroke-width=".9" opacity=".38"/>
+      <text x="418" y="124" font-size="12" fill="currentColor" opacity=".82">user: "What is the capital of France?"</text>
+      <text x="418" y="150" font-size="12" fill="currentColor" opacity=".82">assistant: "…"</text>
+      <text x="418" y="176" font-size="12" fill="currentColor" opacity=".82">user: "…"</text>
+      <text x="418" y="212" font-size="12" fill="#c2410c" opacity=".9">↑ the last one is always yours</text>
 
-      <rect x="780" y="106" width="196" height="104" rx="11" fill="none" stroke="currentColor" stroke-width="1.7"/>
-      <text x="878" y="150" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">The model</text>
-      <text x="878" y="174" text-anchor="middle" font-size="13" fill="currentColor" opacity=".68">openrouter.ai</text>
+      <rect x="840" y="106" width="230" height="104" rx="11" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <text x="955" y="150" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">The model</text>
+      <text x="955" y="174" text-anchor="middle" font-size="13" fill="currentColor" opacity=".68">openrouter.ai</text>
 
-      <line x1="220" y1="128" x2="382" y2="128" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
-      <text x="301" y="118" text-anchor="middle" font-size="13" fill="currentColor">append your prompt</text>
+      <line x1="270" y1="128" x2="392" y2="128" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
+      <text x="335" y="116" text-anchor="middle" font-size="11.5" fill="currentColor">append your prompt</text>
 
-      <line x1="610" y1="128" x2="772" y2="128" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
-      <text x="691" y="118" text-anchor="middle" font-size="13" fill="currentColor">POST the whole array</text>
+      <line x1="710" y1="128" x2="832" y2="128" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
+      <text x="775" y="116" text-anchor="middle" font-size="11.5" fill="currentColor">POST the whole array</text>
 
-      <line x1="780" y1="188" x2="618" y2="188" stroke="#c2410c" stroke-width="2.2" marker-end="url(#a2)"/>
-      <text x="699" y="208" text-anchor="middle" font-size="13" fill="#c2410c" font-weight="600">append the reply</text>
+      <line x1="840" y1="188" x2="718" y2="188" stroke="#c2410c" stroke-width="2.2" marker-end="url(#a2)"/>
+      <text x="775" y="208" text-anchor="middle" font-size="11.5" fill="#c2410c" font-weight="600">append the reply</text>
 
-      <line x1="390" y1="188" x2="228" y2="188" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
-      <text x="309" y="208" text-anchor="middle" font-size="13" fill="currentColor">print the reply</text>
+      <line x1="400" y1="188" x2="278" y2="188" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
+      <text x="335" y="208" text-anchor="middle" font-size="11.5" fill="currentColor">print the reply</text>
 
-      <text x="122" y="248" text-anchor="middle" font-size="13" fill="currentColor" opacity=".6">…then wait for the next one</text>
+      <text x="145" y="242" text-anchor="middle" font-size="12.5" fill="currentColor" opacity=".6">…then wait for the next one</text>
     </svg>
     <figcaption>
       The model is stateless — it remembers nothing between calls. <b>Every turn re-sends the entire conversation.</b>
