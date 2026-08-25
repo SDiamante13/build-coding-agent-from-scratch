@@ -17,7 +17,7 @@ export type Run = {
 };
 
 function environment(model: FakeModel, apiKey: string | null): NodeJS.ProcessEnv {
-  const inherited = {
+  const inherited: NodeJS.ProcessEnv = {
     ...process.env,
     OPENROUTER_BASE_URL: model.url,
     OPENROUTER_MODEL: 'fake/model',
