@@ -13,18 +13,30 @@ export type Session = {
 export type Run = {
   readonly model: FakeModel;
   readonly input: string;
+  readonly apiKey?: string | null;
 };
 
+function environment(model: FakeModel, apiKey: string | null): NodeJS.ProcessEnv {
+  const inherited = {
+    ...process.env,
+    OPENROUTER_BASE_URL: model.url,
+    OPENROUTER_MODEL: 'fake/model',
+  };
+
+  if (apiKey === null) {
+    delete inherited.OPENROUTER_API_KEY;
+
+    return inherited;
+  }
+
+  return { ...inherited, OPENROUTER_API_KEY: apiKey };
+}
+
 // Spawned rather than imported, so the test says nothing about how the agent is built.
-export function runAgent({ model, input }: Run): Promise<Session> {
+export function runAgent({ model, input, apiKey = 'test-key' }: Run): Promise<Session> {
   const agent = spawn('npx', ['tsx', 'src/index.ts'], {
     cwd: projectRoot,
-    env: {
-      ...process.env,
-      OPENROUTER_API_KEY: 'test-key',
-      OPENROUTER_BASE_URL: model.url,
-      OPENROUTER_MODEL: 'fake/model',
-    },
+    env: environment(model, apiKey),
   });
 
   let output = '';
