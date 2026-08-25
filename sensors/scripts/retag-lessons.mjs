@@ -47,6 +47,29 @@ const diverged = spawnSync('git', ['merge-base', '--is-ancestor', 'main', 'solut
 
 if (diverged) process.stdout.write('DIVERGED: main is not an ancestor of solution\n');
 
+// The diff between adjacent lesson tags IS the teaching material, so it must be src/ only.
+function purityOf(from, to) {
+  const files = git('diff', '--name-only', from, to).split('\n').filter(Boolean);
+  const outside = files.filter((file) => !file.startsWith('src/'));
+  const churn = git('diff', '--shortstat', from, to).trim();
+
+  return { outside, churn: churn || 'no change' };
+}
+
+const impure = [];
+
+for (let index = 1; index < lessons.length; index += 1) {
+  const from = lessons[index - 1].tag;
+  const to = lessons[index].tag;
+  const { outside, churn } = purityOf(from, to);
+
+  process.stdout.write(`  ${from} -> ${to}: ${churn}\n`);
+
+  if (outside.length > 0) impure.push(`${from} -> ${to} also touches ${outside.join(', ')}`);
+}
+
+for (const note of impure) process.stdout.write(`NOT PURE: ${note}\n`);
+
 // solution carries lesson commits and nothing else, so every tag diff is pure implementation.
 const strays = git('log', '--format=%h %s', 'main..solution')
   .split('\n')
@@ -64,7 +87,7 @@ const stale = git('tag', '--list', 'lesson-*')
 
 if (stale.length > 0) process.stdout.write(`STALE tags with no commit: ${stale.join(', ')}\n`);
 
-const healthy = stale.length === 0 && !diverged && strays.length === 0;
+const healthy = stale.length === 0 && !diverged && strays.length === 0 && impure.length === 0;
 
 // A rebase moves every lesson tag, and git refuses to move a published tag without --force.
 if (process.argv.includes('--push') && healthy) {
