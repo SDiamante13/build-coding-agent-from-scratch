@@ -39,6 +39,10 @@ Prices and context limits for every model are at
 
 ## The lessons
 
+The four screens used in the session — the agentic loop, tool calling, this lesson map, and how
+coach mode works — are in [`docs/slides.html`](docs/slides.html). Open it in a browser and use
+the arrow keys.
+
 Each lesson adds one capability, then runs into the wall that motivates the next one. That
 wall is the point: you feel the limitation before you hear the fix.
 

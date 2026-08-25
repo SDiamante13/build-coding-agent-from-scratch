@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build a Coding Agent — Screens</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --panel-2: #eef1f5;
+    --border: #d3d9e2;
+    --text: #161b26;
+    --muted: #5b6573;
+    --accent: #c2410c;
+    --accent-2: #1d6fb8;
+    --green: #1a7f37;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+
+  .screen {
+    display: none;
+    height: 100vh;
+    padding: 26px 48px 66px;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .screen.on { display: flex; }
+
+  .eyebrow {
+    color: var(--accent); font-size: 13px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  h1 { font-size: clamp(23px, 2.9vw, 38px); margin: 4px 0 3px; line-height: 1.1; }
+  .sub { color: var(--muted); font-size: clamp(13px, 1.35vw, 17px); margin: 0 0 12px; max-width: 84ch; }
+
+  figure { margin: 0; flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+  figure svg { width: 100%; max-height: 66vh; height: auto; display: block; }
+  figcaption {
+    margin-top: 12px; color: var(--muted); font-size: clamp(13px, 1.3vw, 16px);
+    text-align: center; max-width: 90ch; margin-left: auto; margin-right: auto;
+  }
+  figcaption b { color: var(--text); }
+
+  /* lesson table */
+  table { width: 100%; border-collapse: collapse; font-size: clamp(11px, 1.15vw, 15px); }
+  th {
+    text-align: left; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); padding: 5px 11px; border-bottom: 2px solid var(--border);
+  }
+  td { padding: 4px 11px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  td.n { font-family: var(--mono); color: var(--accent); font-weight: 700; width: 40px; }
+  td.slug { font-family: var(--mono); color: var(--accent-2); white-space: nowrap; }
+  td.hurt { color: var(--muted); }
+  tr.given td { background: #eef7f0; }
+  tr.given td.slug::after { content: " ✓ given"; color: var(--green); font-family: inherit; font-size: .82em; }
+  tr.finale td { background: #fff4ec; font-weight: 600; }
+  tr.finale td.hurt { font-weight: 400; }
+
+  .cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; align-items: start; }
+  .step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .step .num {
+    flex: 0 0 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;
+  }
+  .step .body { font-size: clamp(12px, 1.2vw, 15.5px); }
+  .step .body b { display: block; }
+  .step .body span { color: var(--muted); font-size: .93em; }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 13px 16px; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: clamp(13px, 1.25vw, 16px); }
+  .card p { margin: 0 0 6px; font-size: clamp(11.5px, 1.15vw, 14.5px); color: var(--muted); }
+  .card p:last-child { margin-bottom: 0; }
+  .card.hero { background: #fff4ec; border-color: #f0c9ae; }
+
+  pre {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 13px; font-family: var(--mono); font-size: clamp(10.5px, 1.02vw, 13px);
+    overflow-x: auto; margin: 0 0 8px; line-height: 1.55;
+  }
+  pre .c { color: var(--muted); }
+  pre .you { color: var(--accent); font-weight: 700; }
+  code { font-family: var(--mono); background: var(--panel-2); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 52px;
+    display: flex; align-items: center; gap: 14px; padding: 0 24px;
+    background: var(--panel); border-top: 1px solid var(--border);
+  }
+  .bar .dots { display: flex; gap: 7px; }
+  .bar .dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--border);
+    border: none; padding: 0; cursor: pointer;
+  }
+  .bar .dot.on { background: var(--accent); }
+  .bar .title { font-size: 13px; color: var(--muted); }
+  .bar .count { margin-left: auto; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .bar .hint { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- 1 ─ the agentic loop -->
+<section class="screen on">
+  <div class="eyebrow">Lesson 1–3 · the whole idea</div>
+  <h1>An agent is a while loop around one HTTP call</h1>
+  <p class="sub">No framework, no orchestration engine. You keep a list of messages, you post it, you append what comes back.</p>
+
+  <figure>
+    <svg viewBox="0 0 1000 300" role="img" aria-label="A cycle. Your terminal appends your prompt to a messages array. The whole array is posted to the model. The model's reply is appended to the same array, and printed back to the terminal.">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <polygon points="0,0 10,5 0,10" fill="currentColor"/>
+        </marker>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <polygon points="0,0 10,5 0,10" fill="#c2410c"/>
+        </marker>
+      </defs>
+
+      <rect x="24" y="106" width="196" height="104" rx="11" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <text x="122" y="142" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Your terminal</text>
+      <text x="122" y="168" text-anchor="middle" font-size="13.5" fill="currentColor" opacity=".72">You:  …</text>
+      <text x="122" y="190" text-anchor="middle" font-size="13.5" fill="currentColor" opacity=".72">Assistant:  …</text>
+
+      <text x="500" y="44" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c2410c">this array IS the memory</text>
+      <rect x="390" y="60" width="220" height="196" rx="11" fill="none" stroke="#c2410c" stroke-width="2.4"/>
+      <text x="500" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#c2410c">messages[ ]</text>
+      <line x1="410" y1="102" x2="590" y2="102" stroke="#c2410c" stroke-width=".9" opacity=".38"/>
+      <text x="412" y="126" font-size="13" fill="currentColor" opacity=".82">user: "what is…"</text>
+      <text x="412" y="150" font-size="13" fill="currentColor" opacity=".82">assistant: "…"</text>
+      <text x="412" y="174" font-size="13" fill="currentColor" opacity=".82">user: "and…"</text>
+      <text x="412" y="198" font-size="13" fill="currentColor" opacity=".82">assistant: "…"</text>
+      <text x="412" y="230" font-size="12.5" fill="#c2410c" opacity=".85">↓ grows every single turn</text>
+
+      <rect x="780" y="106" width="196" height="104" rx="11" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <text x="878" y="150" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">The model</text>
+      <text x="878" y="174" text-anchor="middle" font-size="13" fill="currentColor" opacity=".68">openrouter.ai</text>
+
+      <line x1="220" y1="128" x2="382" y2="128" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
+      <text x="301" y="118" text-anchor="middle" font-size="13" fill="currentColor">append your prompt</text>
+
+      <line x1="610" y1="128" x2="772" y2="128" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
+      <text x="691" y="118" text-anchor="middle" font-size="13" fill="currentColor">POST the whole array</text>
+
+      <line x1="780" y1="188" x2="618" y2="188" stroke="#c2410c" stroke-width="2.2" marker-end="url(#a2)"/>
+      <text x="699" y="208" text-anchor="middle" font-size="13" fill="#c2410c" font-weight="600">append the reply</text>
+
+      <line x1="390" y1="188" x2="228" y2="188" stroke="currentColor" stroke-width="1.8" marker-end="url(#a1)"/>
+      <text x="309" y="208" text-anchor="middle" font-size="13" fill="currentColor">print the reply</text>
+
+      <text x="122" y="248" text-anchor="middle" font-size="13" fill="currentColor" opacity=".6">…then wait for the next one</text>
+    </svg>
+    <figcaption>
+      The model is stateless — it remembers nothing between calls. <b>Every turn re-sends the entire conversation.</b>
+      Lesson 2 adds the loop; lesson 3 stops throwing the array away between turns.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 2 ─ tool calling -->
+<section class="screen">
+  <div class="eyebrow">Lesson 4–9 · the part everyone gets wrong</div>
+  <h1>The model never runs anything. It asks you to.</h1>
+  <p class="sub">A "tool" is a JSON schema you send, and a JSON request you get back. Reading the file, editing it, running the tests — that is all your code.</p>
+
+  <figure>
+    <svg viewBox="0 0 980 400" role="img" aria-label="A sequence between your code and the model. Your code sends messages plus tool schemas. The model replies asking for read_file. Your code executes it locally. Your code sends the result back. The model then replies with text.">
+      <defs>
+        <marker id="b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <polygon points="0,0 10,5 0,10" fill="currentColor"/>
+        </marker>
+      </defs>
+
+      <!-- lifelines -->
+      <rect x="70" y="18" width="200" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <text x="170" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Your code</text>
+      <line x1="170" y1="60" x2="170" y2="376" stroke="currentColor" stroke-width="1.2" opacity=".35"/>
+
+      <rect x="710" y="18" width="200" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <text x="810" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">The model</text>
+      <line x1="810" y1="60" x2="810" y2="376" stroke="currentColor" stroke-width="1.2" opacity=".35"/>
+
+      <!-- 1 -->
+      <circle cx="132" cy="96" r="11" fill="currentColor" opacity=".85"/>
+      <text x="132" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#f6f7f9">1</text>
+      <line x1="170" y1="96" x2="802" y2="96" stroke="currentColor" stroke-width="1.7" marker-end="url(#b1)"/>
+      <text x="486" y="86" text-anchor="middle" font-size="13" fill="currentColor">messages  +  tool schemas</text>
+
+      <!-- 2 -->
+      <circle cx="848" cy="150" r="11" fill="currentColor" opacity=".85"/>
+      <text x="848" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="#f6f7f9">2</text>
+      <line x1="810" y1="150" x2="178" y2="150" stroke="currentColor" stroke-width="1.7" marker-end="url(#b1)"/>
+      <text x="494" y="140" text-anchor="middle" font-size="13" fill="currentColor">finish_reason: "tool_calls"</text>
+      <text x="494" y="168" text-anchor="middle" font-size="12.5" font-family="ui-monospace, Menlo, monospace" fill="currentColor" opacity=".75">read_file({ "path": "package.json" })</text>
+
+      <!-- 3 local execution -->
+      <circle cx="30" cy="227" r="11" fill="#c2410c"/>
+      <text x="30" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">3</text>
+      <rect x="56" y="196" width="228" height="62" rx="9" fill="#fff4ec" stroke="#c2410c" stroke-width="2.2"/>
+      <text x="170" y="220" text-anchor="middle" font-size="14" font-weight="700" fill="#c2410c">you run it, locally</text>
+      <text x="170" y="242" text-anchor="middle" font-size="12.5" fill="#c2410c" opacity=".85">readFileSync(path)</text>
+      <text x="300" y="228" font-size="13" fill="#c2410c" font-weight="600">← the whole trick is here</text>
+
+      <!-- 4 -->
+      <circle cx="132" cy="296" r="11" fill="currentColor" opacity=".85"/>
+      <text x="132" y="301" text-anchor="middle" font-size="12" font-weight="700" fill="#f6f7f9">4</text>
+      <line x1="170" y1="296" x2="802" y2="296" stroke="currentColor" stroke-width="1.7" marker-end="url(#b1)"/>
+      <text x="486" y="286" text-anchor="middle" font-size="13" fill="currentColor">messages  +  the tool's result</text>
+
+      <!-- 5 -->
+      <circle cx="848" cy="348" r="11" fill="currentColor" opacity=".85"/>
+      <text x="848" y="353" text-anchor="middle" font-size="12" font-weight="700" fill="#f6f7f9">5</text>
+      <line x1="810" y1="348" x2="178" y2="348" stroke="currentColor" stroke-width="1.7" marker-end="url(#b1)"/>
+      <text x="494" y="338" text-anchor="middle" font-size="13" fill="currentColor">"This project is called…"</text>
+    </svg>
+    <figcaption>
+      Steps 4 and 5 are why lesson 7 exists: after you hand back a result you have to <b>ask again</b>, and keep asking
+      until the model stops requesting tools. Everything an agent can do to your machine, you wrote.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 3 ─ all the lessons -->
+<section class="screen">
+  <div class="eyebrow">The map · 10 lessons</div>
+  <h1>Every lesson ends by breaking</h1>
+  <p class="sub">Each lesson adds a capability, then hits a wall — and that wall is the next lesson's reason to exist.</p>
+
+  <table>
+    <thead><tr><th></th><th>Lesson</th><th>What you add</th><th>What still hurts</th></tr></thead>
+    <tbody>
+      <tr class="given"><td class="n">1</td><td class="slug">single-turn</td><td>one API call, print, exit</td><td class="hurt">you can't ask a follow-up</td></tr>
+      <tr><td class="n">2</td><td class="slug">agent-loop</td><td>the loop — prompt, reply, repeat</td><td class="hurt">it forgets everything you said</td></tr>
+      <tr><td class="n">3</td><td class="slug">conversation</td><td>keep the messages, resend them</td><td class="hurt">it can't see your code</td></tr>
+      <tr><td class="n">4</td><td class="slug">read-file</td><td>a tool: schema, dispatch, result</td><td class="hurt">ask for two files, one is dropped</td></tr>
+      <tr><td class="n">5</td><td class="slug">observability</td><td>a session log, tool calls on screen</td><td class="hurt">now you can <em>watch</em> it drop one</td></tr>
+      <tr><td class="n">6</td><td class="slug">parallel-calls</td><td>run every tool call in the message</td><td class="hurt">it reads, then stops — can't act</td></tr>
+      <tr><td class="n">7</td><td class="slug">tool-call-loop</td><td>keep going until it stops asking</td><td class="hurt">it understands but can't change</td></tr>
+      <tr><td class="n">8</td><td class="slug">edit-file</td><td>exact-match edits</td><td class="hurt">it edits blind — can't run tests</td></tr>
+      <tr><td class="n">9</td><td class="slug">bash</td><td>run commands, feed output back</td><td class="hurt">powerful, but with no method</td></tr>
+      <tr><td class="n">10</td><td class="slug">coding-system-prompt</td><td>the prompt that makes it work test-first</td><td class="hurt">nothing — point it at the kata</td></tr>
+      <tr class="finale"><td class="n">▶</td><td class="slug">kata/bowling</td><td>your agent builds a bowling scorer, test-first</td><td class="hurt">it writes the tests, makes them pass, runs them</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 4 ─ coach mode -->
+<section class="screen">
+  <div class="eyebrow">How you'll build it</div>
+  <h1>Your coding agent coaches you through it</h1>
+  <p class="sub">The repo ships a coach that reads the spec and walks you through it, one small step at a time. Your agent could write all ten lessons in four minutes — and you would learn nothing. <b style="color:var(--accent)">Go slow on purpose.</b></p>
+
+  <div class="cols">
+    <div>
+      <div class="step"><div class="num">1</div><div class="body"><b>Open your agent in the repo and say “coach me”</b><span>Claude Code, Codex, Gemini CLI or Cursor — each has a shim onto <code>.agents/</code>.</span></div></div>
+      <div class="step"><div class="num">2</div><div class="body"><b>It reads the ledger and finds the first <code>Todo</code></b><span><code>docs/specs/README.md</code> — lesson 1 is <code>Done</code>, so you start at 2.</span></div></div>
+      <div class="step"><div class="num">3</div><div class="body"><b>It shows you one small change at a time</b><span>File and line, what the step achieves, then why. It stops and waits for you.</span></div></div>
+      <div class="step"><div class="num">4</div><div class="body"><b>You make the change — or say “jfdi”</b><span>Falling behind is fine. “jfdi” and it writes that step for you, and you keep up.</span></div></div>
+      <div class="step"><div class="num">5</div><div class="body"><b>The acceptance test has to pass before <code>Done</code></b><span>No self-assessment. The ledger row only flips when the test is green.</span></div></div>
+      <div class="step"><div class="num">6</div><div class="body"><b>Then it shows you what still breaks</b><span>The pressure test — which is the next lesson's reason to exist.</span></div></div>
+    </div>
+
+    <div>
+      <div class="card hero">
+        <h3>Broke it? Nothing is lost.</h3>
+        <p>Every lesson is a tag on the <code>solution</code> branch. Your own work stays exactly where it is.</p>
+        <pre><span class="c"># a working version of any lesson</span>
+git checkout lesson-4-read-file
+<span class="c"># or one lesson as a single diff</span>
+git diff lesson-3-conversation lesson-4-read-file</pre>
+      </div>
+
+      <div class="card">
+        <h3>Checking your work</h3>
+        <pre><span class="c"># just the lesson you're on</span>
+npm test -- lesson-04     <span class="c"># npm start to run it</span></pre>
+        <p>A fresh clone already passes lesson 1 and fails lesson 2. That failing assertion is your instruction.</p>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<div class="bar">
+  <div class="dots" id="dots"></div>
+  <span class="title" id="title"></span>
+  <span class="hint">← → to move</span>
+  <span class="count" id="count"></span>
+</div>
+
+<script>
+  const screens = Array.from(document.querySelectorAll('.screen'));
+  const titles = ['The agentic loop', 'Tool calling', 'The 10 lessons', 'Coach mode'];
+  const dots = document.getElementById('dots');
+  let at = 0;
+
+  screens.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'dot';
+    b.setAttribute('aria-label', 'Go to ' + titles[i]);
+    b.addEventListener('click', () => show(i));
+    dots.appendChild(b);
+  });
+
+  function show(next) {
+    at = Math.max(0, Math.min(screens.length - 1, next));
+    screens.forEach((s, i) => s.classList.toggle('on', i === at));
+    Array.from(dots.children).forEach((d, i) => d.classList.toggle('on', i === at));
+    document.getElementById('title').textContent = titles[at];
+    document.getElementById('count').textContent = (at + 1) + ' / ' + screens.length;
+  }
+
+  addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { show(at + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { show(at - 1); e.preventDefault(); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(screens.length - 1);
+  });
+
+  show(0);
+</script>
+</body>
+</html>
