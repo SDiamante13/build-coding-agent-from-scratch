@@ -9,9 +9,15 @@ export type Message = {
   readonly content: string | null;
 };
 
+export type ToolSchema = {
+  readonly type: string;
+  readonly function: { readonly name: string };
+};
+
 export type ModelRequest = {
   readonly model: string;
   readonly messages: readonly Message[];
+  readonly tools?: readonly ToolSchema[];
 };
 
 export type FakeModel = {
