@@ -20,7 +20,11 @@ const maintainabilityRules = {
     { max: 25, skipBlankLines: true, skipComments: true },
   ],
   'max-lines': ['error', { max: 150, skipBlankLines: true, skipComments: false }],
-  complexity: ['error', 5],
+  // 5 is katacombs' value, set against a domain model. Here the code unwraps an
+  // optional-heavy SDK response, and every `?.` and `??` counts as a branch a reader
+  // never actually holds. Measured on the lesson-7 tool loop: the tangled shape scores
+  // 13, the well-factored one scores 7. 8 passes the good shape and still fails the bad.
+  complexity: ['error', 8],
   'max-params': ['error', 4],
   'max-depth': ['error', 2],
   'max-statements': ['error', 15],
