@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Lesson tags are derived from commit subjects, so a rebase can never orphan one.
-// "Implement iteration 2: agent loop" -> lesson-2-agent-loop
+// "Implement lesson 2: agent loop" -> lesson-2-agent-loop
 import { spawnSync } from 'node:child_process';
 
 import { projectRoot } from './roots.mjs';
 
-const SUBJECT = /^Implement iteration (\d+): (.+)$/;
+const SUBJECT = /^Implement lesson (\d+): (.+)$/;
 
 function git(...args) {
   return spawnSync('git', args, { cwd: projectRoot, encoding: 'utf8' }).stdout.trim();
