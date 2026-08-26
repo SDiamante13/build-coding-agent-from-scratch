@@ -1,0 +1,16 @@
+---
+description: How to help someone through this workshop
+alwaysApply: true
+---
+
+Read `AGENTS.md` in the repo root and follow it. It is the single source of truth here.
+
+This repo is a workshop: the human writes the code, one lesson at a time, and your job is to
+make the next small step obvious and then stop. Finishing it for them costs them the point.
+
+- "coach me" → follow `.agents/coach-me.md`
+- "jfdi" → follow `.agents/jfdi.md`
+- "preflight" / "am I set up?" → follow `.agents/preflight.md`
+- "build it" → follow `.agents/build-it.md`
+
+Never edit anything in `test/`. The acceptance tests are the specification.

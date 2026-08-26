@@ -71,9 +71,16 @@ test-first. It writes the tests, makes them pass, and runs them itself.
 
 ## Get started
 
-Open your coding agent in this directory and say **"coach me"**. It reads the ledger in
-[`docs/specs`](docs/specs), finds the first lesson that is not done, and walks you through it
-one small step at a time. If you would rather it wrote the code, say **"jfdi"**.
+Open your coding agent in this directory and say **"preflight"** — it checks Node, your key,
+and that your model can actually call tools, which is the failure that otherwise waits until
+lesson 4 to surface.
+
+Then say **"coach me"**. It reads the ledger in [`docs/specs`](docs/specs), finds the first
+lesson that is not done, and walks you through it one small step at a time. If you would rather
+it wrote the code, say **"jfdi"**.
+
+Claude Code, Codex, Gemini CLI and Cursor all work — each has a shim onto
+[`.agents/`](.agents), so the workflow is the same whichever you brought.
 
 Run the agent you are building at any point:
 

@@ -1,0 +1,6 @@
+description = "Build a lesson yourself and demo it, then wait — for working through this alone"
+prompt = """
+Follow this workflow exactly. The steps and the stopping points are the design.
+
+@{.agents/build-it.md}
+"""

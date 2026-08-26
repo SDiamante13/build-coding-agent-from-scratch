@@ -1,0 +1,6 @@
+description = "Check the human is ready to build, before lesson 1 costs them time"
+prompt = """
+Follow this workflow exactly. The steps and the stopping points are the design.
+
+@{.agents/preflight.md}
+"""
