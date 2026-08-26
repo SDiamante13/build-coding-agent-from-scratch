@@ -1,8 +1,8 @@
-import { ask, close, reply } from './cli.js';
-import { complete } from './llm.js';
+import * as cli from './cli.js';
+import * as llm from './llm.js';
 
-const userInput = await ask();
+const userInput = await cli.ask();
 
-reply(await complete(userInput));
+cli.reply(await llm.complete(userInput));
 
-close();
+cli.close();

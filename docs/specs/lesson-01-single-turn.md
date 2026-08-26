@@ -17,6 +17,10 @@ you get a message back. Everything else in this workshop is built on top of that
 `src/cli.ts`, the model call in `src/llm.ts`. Keep it that way — when a later lesson makes
 `index.ts` hard to read at a glance, the new detail belongs in one of the other two.
 
+Each module is imported whole — `import * as cli from './cli.js'` — so the agent reads
+`cli.ask()` and `llm.complete()`. Every verb says where it comes from without you scrolling
+back to the imports, and the import block doubles as the list of parts.
+
 | File           | Owns                                                     |
 | -------------- | -------------------------------------------------------- |
 | `src/index.ts` | the agent, in the fewest lines that still say it          |
