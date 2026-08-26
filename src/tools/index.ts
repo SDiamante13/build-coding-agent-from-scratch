@@ -16,7 +16,11 @@ export type ToolResult = {
 
 export const schemas = [readFile.schema];
 
-export async function run(call: ToolCall): Promise<ToolResult> {
+export function run(toolCalls: readonly ToolCall[]): Promise<ToolResult[]> {
+  return Promise.all(toolCalls.map(runOne));
+}
+
+async function runOne(call: ToolCall): Promise<ToolResult> {
   cli.using(call.name, call.arguments);
 
   const startedAt = Date.now();
