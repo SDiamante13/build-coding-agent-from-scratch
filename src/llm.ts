@@ -3,6 +3,7 @@ import type { OpenRouterError } from '@openrouter/sdk/models/errors';
 import type { ChatAssistantMessage, ChatMessages, ChatToolCall } from '@openrouter/sdk/models';
 
 import * as log from './log.js';
+import * as prompt from './prompt.js';
 import * as tools from './tools/index.js';
 
 const apiKey = process.env.OPENROUTER_API_KEY;
@@ -25,7 +26,7 @@ export type Response = {
 };
 
 const silence: ChatAssistantMessage = { role: 'assistant', content: '' };
-const conversation: ChatMessages[] = [];
+const conversation: ChatMessages[] = [{ role: 'system', content: prompt.coding }];
 
 let requests = 0;
 
