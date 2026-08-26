@@ -84,7 +84,8 @@
   .card p { margin: 0 0 6px; font-size: clamp(11.5px, 1.15vw, 14.5px); color: var(--muted); }
   .card p:last-child { margin-bottom: 0; }
   .card.hero { background: #fff4ec; border-color: #f0c9ae; }
-  #start .card { padding: 11px 15px; margin-bottom: 8px; }
+  .card a { color: var(--accent-2); font-weight: 700; text-underline-offset: 2px; }
+  #start .card { padding: 10px 15px; margin-bottom: 7px; }
   .qr { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
   .qr-url { font-family: var(--mono); font-size: clamp(10px, 1vw, 12.5px); color: var(--text); word-break: break-all; margin: 9px 0 0; }
 
@@ -147,7 +148,7 @@ cp .env.example .env</pre>
 
       <div class="card hero">
         <h3>2 · An OpenRouter key — the only slow part</h3>
-        <p>Sign up at <b>openrouter.ai/keys</b>, create a key, and paste it into the <code>.env</code> you just copied. <b style="color:var(--accent)">Start this now</b> — everything else is one command.</p>
+        <p>Sign up at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">openrouter.ai/keys</a>, create a key, and paste it into the <code>.env</code> you just copied. <b style="color:var(--accent)">Start this now</b> — everything else is one command.</p>
         <pre>OPENROUTER_API_KEY=sk-or-...</pre>
         <p>The default model is free — no credit card. <code>.env</code> is gitignored.</p>
       </div>
@@ -155,7 +156,7 @@ cp .env.example .env</pre>
       <div class="card">
         <h3>3 · Prove it works</h3>
         <pre>npm start                 <span class="c"># then ask it anything</span></pre>
-        <p>A reply means you are ready. Then say <b>“coach me”</b>.</p>
+        <p>A reply means you are ready.</p>
       </div>
     </div>
 
