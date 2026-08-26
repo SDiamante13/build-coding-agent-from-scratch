@@ -1,6 +1,0 @@
-description = "Write the code yourself so a human who is behind can catch up"
-prompt = """
-Follow this workflow exactly. The steps and the stopping points are the design.
-
-@{.agents/jfdi.md}
-"""

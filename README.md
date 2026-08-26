@@ -79,8 +79,9 @@ Then say **"coach me"**. It reads the ledger in [`docs/specs`](docs/specs), find
 lesson that is not done, and walks you through it one small step at a time. If you would rather
 it wrote the code, say **"jfdi"**.
 
-Claude Code, Codex, Copilot CLI, Cursor and pi all work — each finds the workflows in
-[`.agents/`](.agents), so the session is the same whichever you brought.
+Claude Code, Codex, Copilot CLI, Cursor and pi all work. Each reads
+[`AGENTS.md`](AGENTS.md) on its own and follows it to [`.agents/`](.agents), so the session is
+the same whichever you brought — no per-agent setup.
 
 **Using Codex?** Start it with `codex --yolo`. Codex sandboxes a fresh clone as `read-only`,
 and trusting the folder only gets you as far as `workspace-write` with the network still shut —
