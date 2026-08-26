@@ -6,10 +6,7 @@ import { runAgent } from './support/run-agent.js';
 
 describe('lesson 3: conversation', () => {
   it('sends every earlier message back with the next prompt', async () => {
-    const model = await startFakeModel([
-      says('Nice to meet you, Steven.'),
-      says('Your name is Steven.'),
-    ]);
+    const model = await startFakeModel([says('Nice to meet you, Steven.'), says('Your name is Steven.')]);
 
     const session = await runAgent({
       model,
