@@ -1,6 +1,7 @@
 import { OpenRouter } from '@openrouter/sdk';
 import type { ChatAssistantMessage, ChatMessages, ChatToolCall } from '@openrouter/sdk/models';
 
+import * as prompt from './prompt.js';
 import * as tools from './tools/index.js';
 
 const apiKey = process.env.OPENROUTER_API_KEY;
@@ -21,7 +22,7 @@ export type Response = {
 };
 
 const silence: ChatAssistantMessage = { role: 'assistant', content: '' };
-const conversation: ChatMessages[] = [];
+const conversation: ChatMessages[] = [{ role: 'system', content: prompt.coding }];
 
 function messagesFor(turn: Turn): ChatMessages[] {
   if (typeof turn === 'string') return [{ role: 'user', content: turn }];
