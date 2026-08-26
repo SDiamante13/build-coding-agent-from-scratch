@@ -13,7 +13,7 @@ build it, make its acceptance test pass, then mark it `Done`.
 | 06     | [Parallel calls](lesson-06-parallel-calls.md) | Todo   |
 | 07     | [Tool call loop](lesson-07-tool-call-loop.md) | Todo   |
 | 08     | [Edit file](lesson-08-edit-file.md)           | Todo   |
-| 09     | Bash                                          | —      |
+| 09     | [Bash](lesson-09-bash.md)                     | Todo   |
 | 10     | Coding system prompt                          | —      |
 
 Lesson 01 arrives already built, so you have a working agent to change on your very first
