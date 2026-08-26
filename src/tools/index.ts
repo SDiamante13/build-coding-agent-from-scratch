@@ -1,3 +1,6 @@
+import * as cli from '../cli.js';
+import * as log from '../log.js';
+
 import * as readFile from './read-file.js';
 
 export type ToolCall = {
@@ -14,5 +17,12 @@ export type ToolResult = {
 export const schemas = [readFile.schema];
 
 export async function run(call: ToolCall): Promise<ToolResult> {
-  return { id: call.id, output: await readFile.run(call.arguments) };
+  cli.using(call.name, call.arguments);
+
+  const startedAt = Date.now();
+  const output = await readFile.run(call.arguments);
+
+  log.detail(`<-- ${call.name} answered after ${Date.now() - startedAt}ms`, output);
+
+  return { id: call.id, output };
 }
