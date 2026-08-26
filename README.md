@@ -44,7 +44,7 @@ Prices and context limits for every model are at
 ## The lessons
 
 The four screens used in the session — the agentic loop, tool calling, this lesson map, and how
-coach mode works — are in [`docs/slides.html`](docs/slides.html). Open it in a browser and use
+coach mode works — are in [`docs/index.html`](docs/index.html). Open it in a browser and use
 the arrow keys.
 
 Each lesson adds one capability, then runs into the wall that motivates the next one. That
@@ -106,6 +106,6 @@ git diff lesson-3-conversation lesson-4-read-file
 - `src/` — the agent you are growing. `index.ts` is the agent, `cli.ts` the terminal,
   `llm.ts` the model call. Lesson 1 is already here
 - `test/` — an acceptance test per lesson, and the fake model they run against
-- `docs/slides.html` — the four screens used in the session
+- `docs/index.html` — the four screens used in the session
 - `kata/bowling/` — the finale
 - `sensors/` — authoring tooling for the maintainers. Not part of the workshop; ignore it.
