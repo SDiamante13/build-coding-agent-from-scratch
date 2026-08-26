@@ -3,21 +3,21 @@
 One spec per lesson. Work down the ledger: find the first row marked `Todo`, read its spec,
 build it, make its acceptance test pass, then mark it `Done`.
 
-| Lesson | Spec                                          | Status |
-| ------ | --------------------------------------------- | ------ |
-| 01     | [Single turn](lesson-01-single-turn.md)       | Done   |
-| 02     | [Agent loop](lesson-02-agent-loop.md)         | Todo   |
-| 03     | [Conversation](lesson-03-conversation.md)     | Todo   |
-| 04     | [Read file](lesson-04-read-file.md)           | Todo   |
-| 05     | [Observability](lesson-05-observability.md)   | Todo   |
-| 06     | [Parallel calls](lesson-06-parallel-calls.md) | Todo   |
-| 07     | [Tool call loop](lesson-07-tool-call-loop.md) | Todo   |
-| 08     | [Edit file](lesson-08-edit-file.md)           | Todo   |
-| 09     | [Bash](lesson-09-bash.md)                     | Todo   |
-| 10     | Coding system prompt                          | —      |
+| Lesson | Spec                                                      | Status |
+| ------ | --------------------------------------------------------- | ------ |
+| 01     | [Single turn](lesson-01-single-turn.md)                   | Done   |
+| 02     | [Agent loop](lesson-02-agent-loop.md)                     | Todo   |
+| 03     | [Conversation](lesson-03-conversation.md)                 | Todo   |
+| 04     | [Read file](lesson-04-read-file.md)                       | Todo   |
+| 05     | [Observability](lesson-05-observability.md)               | Todo   |
+| 06     | [Parallel calls](lesson-06-parallel-calls.md)             | Todo   |
+| 07     | [Tool call loop](lesson-07-tool-call-loop.md)             | Todo   |
+| 08     | [Edit file](lesson-08-edit-file.md)                       | Todo   |
+| 09     | [Bash](lesson-09-bash.md)                                 | Todo   |
+| 10     | [Coding system prompt](lesson-10-coding-system-prompt.md) | Todo   |
 
 Lesson 01 arrives already built, so you have a working agent to change on your very first
-step. A row marked `—` has no spec written yet.
+step.
 
 ## Status
 
