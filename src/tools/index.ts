@@ -1,3 +1,5 @@
+import * as cli from '../cli.js';
+
 import * as readFile from './read-file.js';
 
 export type ToolCall = {
@@ -14,5 +16,7 @@ export type ToolResult = {
 export const schemas = [readFile.schema];
 
 export async function run(call: ToolCall): Promise<ToolResult> {
+  cli.using(call.name, call.arguments);
+
   return { id: call.id, output: await readFile.run(call.arguments) };
 }
