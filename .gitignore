@@ -3,6 +3,7 @@ dist/
 
 .env
 .env.local
+.preflight-ok
 
 logs/
 *.log

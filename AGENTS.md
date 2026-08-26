@@ -21,10 +21,11 @@ If they open this repo and say nothing in particular, suggest **"coach me"**.
 
 ## Where things are
 
-- `docs/specs/README.md` — the ledger. The first `Todo` row is always the next lesson.
+- `docs/specs/README.md` — the ledger. The first row that is not `Done` is the current lesson —
+  `WIP` means a previous session stopped part-way through it, so resume rather than skip.
 - `docs/specs/lesson-NN-*.md` — one spec per lesson.
 - `test/` — one acceptance test per lesson. **Read them; never edit them.** The test is the
-  definition of done.
+  definition of done. On a fresh clone nine of them are red; they go green one lesson at a time.
 - `src/` — the agent they are growing. `index.ts` is the loop, `cli.ts` the terminal,
   `llm.ts` the model call.
 - `docs/index.html` — the five screens from the session.
@@ -49,14 +50,16 @@ And, specific to this repo:
   that belongs to a later spec, and spending it early costs that lesson its point.
 - When the agent hits a limitation, say so in plain language. Silent failure sends the learner
   debugging the tutorial instead of learning from it.
-- No new abstraction until a second case exists. `src/tools/index.ts` holds one tool and does
-  not dispatch on the name, on purpose — lesson 8 adds the second tool and the dispatch
-  together.
+- No new abstraction until a second case exists. From lesson 4 on, `src/tools/index.ts` holds
+  one tool and deliberately does not dispatch on the name — lesson 8 adds the second tool and
+  the dispatch together.
 
 ## Hard rules
 
-- **Never edit anything in `test/`.** Making a failing acceptance test pass by changing the test
-  is the one way to waste their whole evening.
+- **Never edit a lesson acceptance test — anything matching `test/lesson-*`.** Making one pass
+  by changing it is the one way to waste their whole evening. The exception: a spec's pressure
+  test may tell you to create a scratch test and break it on purpose. That is allowed, and you
+  delete it afterwards.
 - Never edit spec prose. Only the status column of `docs/specs/README.md`.
 - Never fix a spec's `## Pressure test`. That failure is the next lesson's reason to exist.
 - One lesson at a time. Never start the next one unasked.

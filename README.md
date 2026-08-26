@@ -98,10 +98,12 @@ npm test
 
 ## Falling behind
 
-Every lesson has a tag on the `solution` branch. Your own work stays where it is:
+Every lesson has a tag on the `solution` branch. Take the working version of the lesson you are
+stuck on and keep going — the `-- src/` matters, it copies those files in and leaves the rest of
+your work alone:
 
 ```sh
-git checkout lesson-4-read-file
+git checkout lesson-4-read-file -- src/
 ```
 
 Look at what changed between two of them to see a lesson in one screen:

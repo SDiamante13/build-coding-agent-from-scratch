@@ -85,14 +85,20 @@ else in the repo changes.
 npm test
 ```
 
-Expect **lesson 1 passing and lesson 2 failing.** That is correct and it is the point: lesson 1
-ships already built so there is a working agent to change, and lesson 2's failing assertion is
-the first instruction. If lesson 1 fails, something above is wrong — go back.
+Expect **lesson 1 passing and lessons 2 to 10 failing** — nine red suites. That is correct and
+it is the point: lesson 1 ships already built so there is a working agent to change, and every
+other lesson is a failing assertion waiting to become an instruction. They go green one at a
+time. If lesson 1 fails, something above is wrong — go back.
 
 ## 6 · Their agent
 
 Already proven: they are reading this because their coding agent found it. If it found this
 file, it can find the lesson specs and the ledger.
+
+## Record the pass
+
+If every check passed, `touch .preflight-ok` (it is gitignored). That is how `coach me` knows
+not to make them sit through this again when the session starts.
 
 ## Report
 

@@ -10,15 +10,20 @@ they type it.
 
 ## Process
 
-1. Read `docs/specs/README.md` and find the first `Todo` row.
-2. If nothing is `Todo`, say so and stop.
+1. Read `docs/specs/README.md` and find the first row that is not `Done`.
+2. If every row is `Done`, say so and stop.
+   If the row is `WIP`, a previous run stopped part-way: read the diff, work out where it got
+   to, and continue that lesson rather than restarting or skipping it.
 3. Read that spec in full, and read its acceptance test in `test/`.
 4. Check the current branch. If it is `main`, offer to branch first — their work should not
-   land on the branch they cloned. Suggest `my-agent`. Do not create it without a yes.
+   land on the branch they cloned. Suggest `my-agent`; if that exists, `my-agent-2`, then
+   `my-agent-3`. Do not create it without a yes.
 5. Flip that row to `WIP`, uncommitted.
 6. Implement that lesson only.
-7. Run `npm test -- lesson-0<N>`. It must pass before you continue.
-8. Run `npm test` to confirm nothing earlier broke.
+7. Run `npm test -- lesson-<NN>` — two digits, zero-padded, `lesson-02` through `lesson-10`.
+   It must pass before you continue.
+8. Run `npm test`. Lessons still unbuilt will be red and that is expected; only an *earlier*
+   lesson going red is a problem.
 9. Flip the row to `Done`, confirm no other row moved.
 10. Commit `src/` and the ledger together: `Implement lesson <N>: <slug>`.
 11. Report, in this order and nothing else:
@@ -32,9 +37,9 @@ they type it.
 ## Rules
 
 - One lesson per commit. One lesson per turn. Never chain without a yes.
-- Never edit `test/`.
+- Never edit a lesson acceptance test — anything matching `test/lesson-*`.
 - Never fix the pressure test — it is the next lesson's reason to exist.
 - Keep the code minimal, plain, and undefended. Someone is reading this to learn from it, so a
   clever line costs more than it saves.
-- The demo is the product here. If you rush step 11, this mode is just `iterate-fast` with
-  extra words.
+- The demo is the product here. If you rush step 11, this mode is just autopilot with extra
+  words.
