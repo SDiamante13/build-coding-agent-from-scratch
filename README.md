@@ -1,5 +1,7 @@
 # Build a Coding Agent from Scratch
 
+**Slides and setup — [sdiamante13.github.io/build-coding-agent-from-scratch](https://sdiamante13.github.io/build-coding-agent-from-scratch/)**
+
 You use AI agents every day. Under the hood, every one of them is a while loop, a language
 model, and some tools. Over ten short lessons you will build one — no frameworks — until it
 can read your code, change it, run your tests, and drive a kata test-first.
@@ -43,9 +45,10 @@ Prices and context limits for every model are at
 
 ## The lessons
 
-The four screens used in the session — the agentic loop, tool calling, this lesson map, and how
-coach mode works — are in [`docs/index.html`](docs/index.html). Open it in a browser and use
-the arrow keys.
+The five screens used in the session — getting set up, the agentic loop, tool calling, this
+lesson map, and how coach mode works — are at
+[sdiamante13.github.io/build-coding-agent-from-scratch](https://sdiamante13.github.io/build-coding-agent-from-scratch/), or in
+[`docs/index.html`](docs/index.html) if you have already cloned. Use the arrow keys.
 
 Each lesson adds one capability, then runs into the wall that motivates the next one. That
 wall is the point: you feel the limitation before you hear the fix.
@@ -106,6 +109,6 @@ git diff lesson-3-conversation lesson-4-read-file
 - `src/` — the agent you are growing. `index.ts` is the agent, `cli.ts` the terminal,
   `llm.ts` the model call. Lesson 1 is already here
 - `test/` — an acceptance test per lesson, and the fake model they run against
-- `docs/index.html` — the four screens used in the session
+- `docs/index.html` — the five screens used in the session, published at the link above
 - `kata/bowling/` — the finale
 - `sensors/` — authoring tooling for the maintainers. Not part of the workshop; ignore it.
