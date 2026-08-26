@@ -87,6 +87,7 @@
   .card a { color: var(--accent-2); font-weight: 700; text-underline-offset: 2px; }
   .card a.feedback { font-family: var(--mono); font-size: clamp(11.5px, 1.1vw, 14px); }
   #takeaways .card { padding: 11px 15px; }
+  #takeaways .cols { flex: 1; align-content: center; }
   #start .card { padding: 10px 15px; margin-bottom: 7px; }
   .qr { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
   .qr-url { font-family: var(--mono); font-size: clamp(10px, 1vw, 12.5px); color: var(--text); word-break: break-all; margin: 9px 0 0; }
@@ -378,21 +379,15 @@ npm test -- lesson-04     <span class="c"># npm start to run it</span></pre>
       <div class="step"><div class="num">3</div><div class="body"><b>Tools are the deterministic layer</b><span>They are how it touches the outside world — files, APIs, databases, the shell. The model guesses; the tool does not.</span></div></div>
       <div class="step"><div class="num">4</div><div class="body"><b>The model never runs a tool. You do.</b><span>It answers with a request and stops. Your harness runs it and calls the model again with the result.</span></div></div>
       <div class="step"><div class="num">5</div><div class="body"><b>Three tools is a coding agent</b><span><code>read_file</code>, <code>edit_file</code>, <code>bash</code>. That is the whole kit — everything else is a convenience.</span></div></div>
-      <div class="step"><div class="num">6</div><div class="body"><b>It satisfies your prompt the cheapest way it can</b><span>Told a failing test is the only thing that matters, it edited the test. The prompt is the product, and it is obeyed exactly and meant not at all.</span></div></div>
     </div>
 
     <div>
       <div class="card hero">
         <h3>Tell me how that went</h3>
-        <p>Five questions, about two minutes. It shapes the next version of this workshop more than anything else I have.</p>
+        <p>Five questions, about two minutes. It shapes the next version of this workshop.</p>
         <p style="margin-top:10px"><a class="feedback" href="https://forms.gle/DsVxkrgPUY5YC9Y67" target="_blank" rel="noopener noreferrer">forms.gle/DsVxkrgPUY5YC9Y67</a></p>
       </div>
 
-      <div class="card">
-        <h3>Keep going</h3>
-        <p>Four bonus specs ship on <code>main</code> and nobody touches them today: permissions, a loop guard, failure recovery, and an events lifecycle with hooks.</p>
-        <p>That is the difference between the agent you just built and the one you use every day.</p>
-      </div>
     </div>
   </div>
 </section>
