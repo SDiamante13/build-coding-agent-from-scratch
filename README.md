@@ -82,17 +82,20 @@ it wrote the code, say **"jfdi"**.
 Claude Code, Codex, Copilot CLI, Cursor and pi all work — each finds the workflows in
 [`.agents/`](.agents), so the session is the same whichever you brought.
 
-**Using Codex?** Its sandbox blocks the loopback server the acceptance tests run on, so every
-lesson's test times out. Add this to your `~/.codex/config.toml` before you start:
+**Using Codex?** Start it with `codex --yolo`. Codex sandboxes a fresh clone as `read-only`,
+and trusting the folder only gets you as far as `workspace-write` with the network still shut —
+which blocks the loopback server the acceptance tests run on, so every lesson's test times out.
+`--yolo` turns the sandbox off and the tests pass.
+
+If you would rather keep the sandbox, trust the folder and add this to `~/.codex/config.toml`:
 
 ```toml
 [sandbox_workspace_write]
 network_access = true
 ```
 
-A `.codex/config.toml` inside the repo does **not** work — Codex only reads the one in your home
-directory. Per session you can pass it instead:
-`codex --sandbox workspace-write -c sandbox_workspace_write.network_access=true`
+A `.codex/config.toml` inside the repo does not work — Codex only reads the one in your home
+directory.
 
 Run the agent you are building at any point:
 
