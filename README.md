@@ -66,8 +66,10 @@ wall is the point: you feel the limitation before you hear the fix.
 | 9   | `bash`                 | run commands, feed the output back             | powerful, but with no method                        |
 | 10  | `coding-system-prompt` | the prompt that makes it work test-first       | nothing — point it at the kata                      |
 
-**The finale:** point your agent at `kata/bowling` and ask it to build a bowling scorer
-test-first. It writes the tests, makes them pass, and runs them itself.
+**The finale:** read [`kata/bowling/README.md`](kata/bowling/README.md) — it holds the rules and
+the one line you give your agent. It writes the tests, makes them pass, and runs them itself.
+`npm run kata` runs that folder alone, so a half-finished scorer never turns your lesson tests
+red.
 
 ## Get started
 
@@ -138,5 +140,5 @@ git diff lesson-3-conversation lesson-4-read-file
   `llm.ts` the model call. Lesson 1 is already here
 - `test/` — an acceptance test per lesson, and the fake model they run against
 - `docs/index.html` — the five screens used in the session, published at the link above
-- `kata/bowling/` — the finale
+- `kata/bowling/` — the finale. One README and nothing else; your agent writes the rest
 - `sensors/` — authoring tooling for the maintainers. Not part of the workshop; ignore it.
