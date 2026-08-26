@@ -6,4 +6,4 @@ Shortcut: when they say **"coach me"**, read and follow `.agents/coach-me.md` â€
 at a time, and stop after each one. When they say **"jfdi"**, follow `.agents/jfdi.md` and just
 write the code.
 
-Slash commands are available too: `/coach-me`, `/jfdi`, `/preflight`, `/build-it`.
+There are skills for each too, so `/coach-me`, `/jfdi`, `/preflight` and `/build-it` work as well.
