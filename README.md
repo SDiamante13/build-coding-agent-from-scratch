@@ -79,8 +79,20 @@ Then say **"coach me"**. It reads the ledger in [`docs/specs`](docs/specs), find
 lesson that is not done, and walks you through it one small step at a time. If you would rather
 it wrote the code, say **"jfdi"**.
 
-Claude Code, Codex, Gemini CLI and Cursor all work — each has a shim onto
-[`.agents/`](.agents), so the workflow is the same whichever you brought.
+Claude Code, Codex, Copilot CLI, Cursor and pi all work — each finds the workflows in
+[`.agents/`](.agents), so the session is the same whichever you brought.
+
+**Using Codex?** Its sandbox blocks the loopback server the acceptance tests run on, so every
+lesson's test times out. Add this to your `~/.codex/config.toml` before you start:
+
+```toml
+[sandbox_workspace_write]
+network_access = true
+```
+
+A `.codex/config.toml` inside the repo does **not** work — Codex only reads the one in your home
+directory. Per session you can pass it instead:
+`codex --sandbox workspace-write -c sandbox_workspace_write.network_access=true`
 
 Run the agent you are building at any point:
 

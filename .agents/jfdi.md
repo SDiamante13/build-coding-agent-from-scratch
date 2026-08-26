@@ -19,7 +19,10 @@ doing too little.
 
 ## After you write it
 
-Show the diff and one line saying what it does. That is the whole report.
+Show the diff and one line saying what it does. Then present the next step, in the shape
+`.agents/coach-me.md` describes, ending with the offer. **Never end a jfdi turn without the next
+step on the table** — otherwise they have to spend a turn asking "and now?", which is the exact
+minute they were trying to save.
 
 They are still learning here — they read the diff instead of typing it. So the code has to be
 worth reading: the same small, plain, undefended code the lesson would have produced. Do not
