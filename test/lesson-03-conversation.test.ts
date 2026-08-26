@@ -13,7 +13,7 @@ describe('lesson 3: conversation', () => {
       input: 'My name is Steven.\nWhat is my name?\n',
     });
     await model.close();
-    const resent = model.requests[1]?.messages ?? [];
+    const resent = (model.requests[1]?.messages ?? []).filter((message) => message.role !== 'system');
 
     expect(session.output).toContain('Assistant: Your name is Steven.');
     expect(resent).toHaveLength(3);
