@@ -96,6 +96,9 @@ Check your work against the lesson you are on:
 npm test
 ```
 
+Lessons you have not built yet stay red — that is the ledger, not a problem. A fresh clone
+starts with nine red suites and they go green one lesson at a time.
+
 ## Falling behind
 
 Every lesson has a tag on the `solution` branch. Take the working version of the lesson you are

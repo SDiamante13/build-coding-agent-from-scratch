@@ -24,8 +24,9 @@ If they open this repo and say nothing in particular, suggest **"coach me"**.
 - `docs/specs/README.md` — the ledger. The first row that is not `Done` is the current lesson —
   `WIP` means a previous session stopped part-way through it, so resume rather than skip.
 - `docs/specs/lesson-NN-*.md` — one spec per lesson.
-- `test/` — one acceptance test per lesson. **Read them; never edit them.** The test is the
-  definition of done. On a fresh clone nine of them are red; they go green one lesson at a time.
+- `test/` — one acceptance test per lesson. **Read them; never edit the lesson acceptance
+  tests.** The test is the definition of done. On a fresh clone nine of them are red; they go
+  green one lesson at a time.
 - `src/` — the agent they are growing. `index.ts` is the loop, `cli.ts` the terminal,
   `llm.ts` the model call.
 - `docs/index.html` — the five screens from the session.

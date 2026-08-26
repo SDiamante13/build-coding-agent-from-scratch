@@ -31,7 +31,9 @@ they type it.
     - **The idea** — the spec's key concept in one plain sentence.
     - **What changed** — two or three lines. Point at the diff, do not paste it.
     - **Try it** — the spec's `## Example`, as something they can run right now.
-    - **What it still can't do** — run the `## Pressure test` and show the actual output.
+    - **What it still can't do** — run the `## Pressure test` and show the actual output. Pipe
+      the prompts in on stdin, the `printf ... | npm start` form in `.agents/coach-me.md`;
+      typing them interactively will hang.
 12. Ask: "Next lesson?" Then **stop.**
 
 ## Rules

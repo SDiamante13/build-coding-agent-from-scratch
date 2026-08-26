@@ -10,8 +10,9 @@ and learn nothing — going slow is the entire point.
 
 ## Before the first lesson
 
-If `.preflight-ok` does not exist, ask in one line whether preflight passed. Run
-`.agents/preflight.md` only if they say no or are not sure. Do not re-run it on a machine that
+If `.preflight-ok` does not exist, ask in one line whether preflight passed. If they say yes,
+`touch .preflight-ok` and carry on — otherwise you will ask again at the start of every lesson.
+Run `.agents/preflight.md` only if they say no or are not sure. Do not re-run it on a machine that
 already passed — it costs two minutes and a live API call, and the whole room is starting at
 once.
 
