@@ -7,7 +7,7 @@ build it, make its acceptance test pass, then mark it `Done`.
 | ------ | --------------------------------------------------------- | ------ |
 | 01     | [Single turn](lesson-01-single-turn.md)                   | Done   |
 | 02     | [Agent loop](lesson-02-agent-loop.md)                     | Done   |
-| 03     | [Conversation](lesson-03-conversation.md)                 | Todo   |
+| 03     | [Conversation](lesson-03-conversation.md)                 | Done   |
 | 04     | [Read file](lesson-04-read-file.md)                       | Todo   |
 | 05     | [Observability](lesson-05-observability.md)               | Todo   |
 | 06     | [Parallel calls](lesson-06-parallel-calls.md)             | Todo   |
