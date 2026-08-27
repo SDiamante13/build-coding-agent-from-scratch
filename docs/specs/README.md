@@ -12,7 +12,7 @@ build it, make its acceptance test pass, then mark it `Done`.
 | 05     | [Observability](lesson-05-observability.md)               | Done   |
 | 06     | [Parallel calls](lesson-06-parallel-calls.md)             | Done   |
 | 07     | [Tool call loop](lesson-07-tool-call-loop.md)             | Done   |
-| 08     | [Edit file](lesson-08-edit-file.md)                       | Todo   |
+| 08     | [Edit file](lesson-08-edit-file.md)                       | Done   |
 | 09     | [Bash](lesson-09-bash.md)                                 | Todo   |
 | 10     | [Coding system prompt](lesson-10-coding-system-prompt.md) | Todo   |
 
