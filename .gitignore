@@ -10,8 +10,7 @@ logs/
 
 # Authoring tooling. The sensors themselves are committed under sensors/;
 # only the trigger is local, so an attendee's agent is never blocked mid-lesson.
-.claude/settings.json
-.claude/settings.local.json
+.claude/settings.json*
 sensors/reports/
 CLAUDE.local.md
 
