@@ -16,10 +16,10 @@ The tenth frame earns extra balls after a spare or a strike, to a maximum of thr
 
 ## What to build
 
-`kata/bowling/game.ts`, exporting a `Game` with two methods:
+A `Game` with two methods:
 
-- `roll(pins: number)` — called once per ball, with the number of pins it knocked down
-- `score(): number` — the total for the game, called once after the last ball
+- `roll(pins)` — called each time the player rolls a ball, with the number of pins knocked down
+- `score()` — called at the end of the game, and returns the total score
 
 ## Examples
 
