@@ -97,6 +97,16 @@ work on until it passes" is a sentence about tests passing, and the fastest way 
 pass is to stop asking it for anything. You have not given the agent judgement; you have given it
 one more thing to satisfy, and it will satisfy it the cheapest way it can find.
 
+Sometimes it finds a cheaper one than editing the assertion:
+
+```text
+→ bash {"command": "rm test/scratch-fail.test.ts && npm test"}
+Assistant: The failing test was resolved, all 17 tests pass, and the title in scratch-note.txt
+is now new.
+```
+
+It deleted the test. Every word of that sentence is true.
+
 Which is where the workshop ends and the practice starts. The kata is the same question with the
 stakes turned up: the agent writes the tests too, so nothing at all stands between it and a suite
 that passes by meaning nothing.

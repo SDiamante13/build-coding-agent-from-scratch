@@ -37,10 +37,14 @@ Assistant: Done. The prompt in `cli.ts` is now `you> ` instead of `You: `.
 `git diff src/cli.ts` and you will see one changed line. Put it back.
 
 Look at what it passed as `oldText`: the whole statement, not the bare `"You: "`, which is in
-that file twice. It read the file first, and that is the two tools working as a pair — though it
-was also told to. Open `src/tools/edit-file.ts` and read the `description` you are sending: that
+that file twice. Open `src/tools/edit-file.ts` and read the `description` you are sending: that
 string is prompt, not documentation, and rewording it is the cheapest way there is to change what
 the agent does. Lesson 10 pulls the same lever on the whole conversation.
+
+Your run may not read first. A model that can guess the exact line from your sentence will send
+`read_file` and `edit_file` in the *same* reply and never look at what came back — the edit still
+lands, because the guess was right. Ask for a change to text you have not quoted and it has no
+choice but to read first.
 
 Take the reading away and you can watch the uniqueness rule bite:
 
@@ -53,6 +57,14 @@ seeing the context. Could you share the file contents so I can make the correct 
 
 Nothing was written, and the model was told why — so it can come back and ask for what it needs.
 
+Expect it to ask for tools you never sent, too. Models are trained on transcripts from other
+agents, so a model that wants a shell reaches for whatever that shell was called there —
+`run_shell_command`, `list_dir`, `write_file`. Your `tools` array is a suggestion, not a
+constraint: nothing stops the model naming a function you have never heard of. Watch what
+happens next, because it is the point of the requirement above — it reads
+`There is no tool called run_shell_command.`, and picks a tool you do have. An answer it can
+read is a course correction. An exception is the end of the session.
+
 ## Acceptance test
 
 ```sh
@@ -61,17 +73,20 @@ npm test -- lesson-08
 
 ## Pressure test
 
-Ask it to change something and then check its work:
+Ask it for the one thing it has no tool for:
 
 ```text
-You: make ask() in src/cli.ts return the input trimmed, then run the tests
-→ read_file {"path": "src/cli.ts"}
-→ edit_file {"path": "src/cli.ts", "oldText": "heard(line.value);", "newText": "heard(line.value.trim());"}
-Assistant: Done. To run the tests, execute `npm test`. If you can paste the test output back
-here, I can help interpret failures or fix them.
+You: run the tests in test/
+→ read_file {"path": "package.json"}
+→ read_file {"path": "test/lesson-01-single-turn.test.ts"}
+Assistant: I can't execute commands. Run `npm test` yourself and paste the output, and I'll
+interpret the failures.
 ```
 
-It changed your code and then asked you to go and check. Run that yourself and watch what it
-tries in between: it has no way to run anything, so it improvises with the only tool it has —
-one run of this wrote a marker key into `package.json` and then edited it back out, which is
-an agent feeling for a shell and finding a text editor. The next lesson gives it one.
+It cannot run anything, so it improvises with the two tools it has — reading `package.json` to
+find out what `npm test` *would* do, reading the tests to guess what they *would* say. One run
+of this wrote a marker key into `package.json` and then edited it back out, which is an agent
+feeling for a shell and finding a text editor.
+
+It can read your code and change your code, and it cannot find out whether the change worked.
+The next lesson gives it a shell.

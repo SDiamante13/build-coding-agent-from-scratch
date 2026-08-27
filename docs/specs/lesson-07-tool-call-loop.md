@@ -47,9 +47,16 @@ Ask it to change something:
 You: src/cli.ts prompts with "You: " — make it "you> " instead
 → read_file {"path":"src/cli.ts"}
 Assistant: Change line 8 of src/cli.ts from terminal.setPrompt('You: ') to
-terminal.setPrompt('you> '). Would you like me to explain the rest of the file?
+terminal.setPrompt('you> ').
 ```
 
-It found the line, and then it told you to type. It has one tool, and that tool only reads.
+What it says back varies — some models quote the line, some hand you the whole file, some
+answer with nothing at all. Check the part that does not vary:
+
+```sh
+git diff src/cli.ts
+```
+
+Empty. It found the line, and then it told you to type. It has one tool, and that tool only reads.
 Every change still goes through your hands, which means the agent is a very well-informed
 observer of your code. The next lesson gives it a tool that writes.
