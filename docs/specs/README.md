@@ -9,7 +9,7 @@ build it, make its acceptance test pass, then mark it `Done`.
 | 02     | [Agent loop](lesson-02-agent-loop.md)                     | Done   |
 | 03     | [Conversation](lesson-03-conversation.md)                 | Done   |
 | 04     | [Read file](lesson-04-read-file.md)                       | Done   |
-| 05     | [Observability](lesson-05-observability.md)               | Todo   |
+| 05     | [Observability](lesson-05-observability.md)               | Done   |
 | 06     | [Parallel calls](lesson-06-parallel-calls.md)             | Todo   |
 | 07     | [Tool call loop](lesson-07-tool-call-loop.md)             | Todo   |
 | 08     | [Edit file](lesson-08-edit-file.md)                       | Todo   |
