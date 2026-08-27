@@ -47,8 +47,13 @@ Ask for two files again, and this time watch the screen:
 ```text
 You: compare src/cli.ts and src/llm.ts
 → read_file {"path":"src/cli.ts"}
-Assistant: src/cli.ts handles the terminal. I could not see src/llm.ts.
+BadRequestResponseError: Provider returned error
+  "No tool output found for function call call_aCEI1sueCUdpFkzRYV6RZnEX."
 ```
 
-One arrow. The model asked for two files in that reply and the agent ran the first one only —
-lesson 04's bug, now in plain sight. The next lesson runs all of them.
+Same crash as lesson 04, and now there is a line above it. One arrow, where the model asked for
+two files — so the thing that went missing is on screen, named, before the thing that broke.
+
+That is the whole of observability. The bug did not change; what changed is that you can now
+read it off the screen instead of inferring it from a stack trace. The next lesson runs all of
+them.
