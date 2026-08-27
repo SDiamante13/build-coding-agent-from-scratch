@@ -15,21 +15,21 @@ const openRouter = new OpenRouter({ apiKey });
 const conversation: ChatMessages[] = [];
 const silence: ChatAssistantMessage = { role: 'assistant', content: '' };
 
-export type Turn = string | tools.ToolResult;
+export type Turn = string | readonly tools.ToolResult[];
 
 export type Response = {
   readonly text: string;
-  readonly toolCall?: tools.ToolCall;
+  readonly toolCalls: readonly tools.ToolCall[];
 };
 
-function messageFor(turn: Turn): ChatMessages {
-  if (typeof turn === 'string') return { role: 'user', content: turn };
+function messagesFor(turn: Turn): ChatMessages[] {
+  if (typeof turn === 'string') return [{ role: 'user', content: turn }];
 
-  return { role: 'tool', toolCallId: turn.id, content: turn.output };
+  return turn.map((result) => ({ role: 'tool', toolCallId: result.id, content: result.output }));
 }
 
 export async function complete(turn: Turn): Promise<Response> {
-  conversation.push(messageFor(turn));
+  conversation.push(...messagesFor(turn));
   const result = await openRouter.chat.send({
     chatRequest: {
       model,
@@ -41,10 +41,13 @@ export async function complete(turn: Turn): Promise<Response> {
 
   const reply = ('choices' in result ? result.choices[0]?.message : undefined) ?? silence;
   conversation.push(reply);
-  const call = reply.toolCalls?.[0];
 
   return {
     text: typeof reply.content === 'string' ? reply.content : '',
-    toolCall: call && { id: call.id, name: call.function.name, arguments: call.function.arguments },
+    toolCalls: (reply.toolCalls ?? []).map((call) => ({
+      id: call.id,
+      name: call.function.name,
+      arguments: call.function.arguments,
+    })),
   };
 }
