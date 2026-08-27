@@ -14,7 +14,7 @@ build it, make its acceptance test pass, then mark it `Done`.
 | 07     | [Tool call loop](lesson-07-tool-call-loop.md)             | Done   |
 | 08     | [Edit file](lesson-08-edit-file.md)                       | Done   |
 | 09     | [Bash](lesson-09-bash.md)                                 | Done   |
-| 10     | [Coding system prompt](lesson-10-coding-system-prompt.md) | Todo   |
+| 10     | [Coding system prompt](lesson-10-coding-system-prompt.md) | Done   |
 
 Lesson 01 arrives already built, so you have a working agent to change on your very first
 step.
