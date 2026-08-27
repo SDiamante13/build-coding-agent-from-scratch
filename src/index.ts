@@ -1,8 +1,8 @@
 import * as cli from './cli.js';
 import * as llm from './llm.js';
 
-const userInput = await cli.ask();
+while (true) {
+  const userInput = await cli.ask();
 
-cli.reply(await llm.complete(userInput));
-
-cli.close();
+  cli.reply(await llm.complete(userInput));
+}
