@@ -29,16 +29,23 @@ That is the whole setup. `npm start` reads `.env` for you.
 
 The default costs nothing, so you can build the whole agent without spending anything. Free
 models are rate limited, though, so if replies start failing put a few dollars of credit on
-your OpenRouter account and switch to `google/gemma-4-31b-it` — it is the fastest of the four
-and a whole workshop costs cents. Any model that supports tool calling works; swap
-`OPENROUTER_MODEL` and nothing else changes.
+your OpenRouter account and switch to `openai/gpt-5.6-luna` — a whole workshop costs cents. Any
+model that supports tool calling works; swap `OPENROUTER_MODEL` and nothing else changes.
 
-| Model                     | Tools | Context | Cost per 1M in/out | Notes                                     |
-| ------------------------- | ----- | ------- | ------------------ | ----------------------------------------- |
-| `minimax/minimax-m3:free` | yes   | 1M      | free               | the default — costs nothing, rate limited |
-| `google/gemma-4-31b-it`   | yes   | 256K    | $0.10 / $0.34      | the fastest, and cheap enough to not care |
-| `google/gemini-3.7-flash` | yes   | 1M      | $0.38 / $1.88      | a good all-rounder                        |
-| `openai/gpt-5.6-luna`     | yes   | 1M      | $0.20 / $1.20      | strongest once the agent runs many tools  |
+| Model                     | Tools | Context | Cost per 1M in/out | Notes                                          |
+| ------------------------- | ----- | ------- | ------------------ | ---------------------------------------------- |
+| `minimax/minimax-m3:free` | yes   | 1M      | free               | the default — costs nothing, rate limited      |
+| `openai/gpt-5.6-luna`     | yes   | 1M      | $0.20 / $1.20      | strongest once the agent runs many tools       |
+| `google/gemma-4-31b-it`   | yes   | 256K    | $0.10 / $0.34      | the fastest                                    |
+| `google/gemini-3.7-flash` | yes   | 1M      | $0.38 / $1.88      | **avoid** — see below                          |
+
+`minimax/minimax-m3:free` and `openai/gpt-5.6-luna` have both been run through all ten lessons.
+
+Do not use `google/gemini-3.7-flash`. It answers a single question fine and passes every
+preflight check, then dies part-way through lesson 10 with `Corrupted thought signature.` —
+Gemini 3.x attaches encrypted reasoning to its replies and requires it back byte-exact on the
+next request, which is a round trip this agent does not do and the lessons do not teach. The
+failure arrives after nine lessons of everything working.
 
 Prices and context limits for every model are at
 [openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low).

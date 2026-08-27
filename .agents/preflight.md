@@ -73,11 +73,14 @@ Read the response:
 To switch, change one line in `.env`:
 
 ```sh
-OPENROUTER_MODEL=google/gemma-4-31b-it
+OPENROUTER_MODEL=openai/gpt-5.6-luna
 ```
 
-That one is the fastest of the recommended models and a whole workshop costs cents. Nothing
-else in the repo changes.
+A whole workshop costs cents, and it is the one that holds up best once the agent is running
+many tools at once. Nothing else in the repo changes.
+
+Do not switch to `google/gemini-3.7-flash`. It passes this check and then breaks in lesson 10;
+the README says why.
 
 ## 5 · The starting line
 
