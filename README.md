@@ -66,10 +66,23 @@ wall is the point: you feel the limitation before you hear the fix.
 | 9   | `bash`                 | run commands, feed the output back             | powerful, but with no method                        |
 | 10  | `coding-system-prompt` | the prompt that makes it work test-first       | nothing — point it at the kata                      |
 
-**The finale:** read [`kata/bowling/README.md`](kata/bowling/README.md) — it holds the rules and
-the one line you give your agent. It writes the tests, makes them pass, and runs them itself.
-`npm run kata` runs that folder alone, so a half-finished scorer never turns your lesson tests
-red.
+**The finale:** the rules are in [`kata/bowling/README.md`](kata/bowling/README.md). Start your
+agent with `npm start` and give it this:
+
+```text
+Read kata/bowling/README.md and build the bowling scorer test-first.
+Run `npm run kata` to check your work.
+```
+
+Nothing in that says how to work. That comes from the system prompt you wrote in lesson 10, and
+this is where you find out whether it took. `npm run kata` runs that folder alone, so a
+half-finished scorer never turns your lesson tests red. You are not expected to finish — three
+rules green, written test-first, is the exercise working.
+
+The folder holds one file, so your agent has to make the rest. Watch what it does, and watch for
+the three ways it goes wrong: writing the code before the test, making a failing test pass by
+editing the test, and saying it is done without running anything. When it does one of those, the
+system prompt is the thing to change — not the code.
 
 ## Get started
 
