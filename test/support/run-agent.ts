@@ -38,6 +38,8 @@ export function runAgent({ model, input, apiKey = 'test-key' }: Run): Promise<Se
   const agent = spawn(npx, ['tsx', 'src/index.ts'], {
     cwd: projectRoot,
     env: environment(model, apiKey),
+    // Windows refuses to spawn a .cmd without a shell, and throws rather than emitting an error.
+    shell: process.platform === 'win32',
   });
 
   let output = '';
