@@ -9,7 +9,22 @@ bug in their code.
 Run the checks yourself. Report a short pass/fail list at the end, nothing more. If everything
 passes, say so in one line and move on.
 
-## 1 · Node and git
+## 1 · The shell
+
+```sh
+node -p "process.platform"
+```
+
+- `darwin` or `linux` — carry on.
+- `win32` — carry on, and note two things. Every command below is POSIX shell, so this has to be
+  **Git Bash**, not PowerShell, which does not understand `&&`, `[ -d … ]` or `. ./.env`. And
+  Node comes from the nodejs.org installer, not `nvm` — POSIX `nvm` does not run on Windows at
+  all. Restart Git Bash after installing Node or it will still say `command not found`.
+
+Do not send anyone to WSL2 to get past this step. Windows is the least rehearsed platform here,
+so run the checks and let them say what is wrong.
+
+## 2 · Node and git
 
 ```sh
 node -v && git --version
@@ -18,13 +33,13 @@ node -v && git --version
 Node must be **22 or newer**. If it is older, say so and stop — nothing downstream will work,
 and `npm install` may appear to succeed anyway.
 
-## 2 · Dependencies
+## 3 · Dependencies
 
 ```sh
 [ -d node_modules ] && echo installed || npm install
 ```
 
-## 3 · A key
+## 4 · A key
 
 ```sh
 [ -f .env ] && grep -q '^OPENROUTER_API_KEY=sk-' .env && echo "key present" || echo "NO KEY"
@@ -36,7 +51,7 @@ no credit card.
 
 Never print the key, never echo the file, and never put it in a commit.
 
-## 4 · The model can call tools
+## 5 · The model can call tools
 
 This is the check that matters, and the one people skip. A model that chats fine can still be
 unable to emit a `tool_call` — and that failure does not surface until lesson 4, silently, in
@@ -82,7 +97,7 @@ many tools at once. Nothing else in the repo changes.
 Do not switch to `google/gemini-3.7-flash`. It passes this check and then breaks in lesson 10;
 the README says why.
 
-## 5 · The starting line
+## 6 · The starting line
 
 ```sh
 npm test
@@ -93,7 +108,12 @@ it is the point: lesson 1 ships already built so there is a working agent to cha
 other lesson is a failing assertion waiting to become an instruction. They go green one at a
 time. If lesson 1 fails, something above is wrong — go back.
 
-## 6 · Their agent
+Lesson 1's test spawns the real agent with piped input and checks it exits `0`, which makes it
+the only automated check of `src/cli.ts` in the repo. That is issue #1's code path exactly. So a
+red lesson 1 on Windows, with everything above green, is the open bug and not their setup — that
+is the one case where WSL2 is worth the install.
+
+## 7 · Their agent
 
 Already proven: they are reading this because their coding agent found it. If it found this
 file, it can find the lesson specs and the ledger.
@@ -105,6 +125,6 @@ not to make them sit through this again when the session starts.
 
 ## Report
 
-Six lines, one per check, `pass` or what to fix. Then either "You're ready — say **coach me**
+Seven lines, one per check, `pass` or what to fix. Then either "You're ready — say **coach me**
 to start lesson 2" or the single most important thing to fix first. Do not list every problem
 at once; give them one thing to do.
