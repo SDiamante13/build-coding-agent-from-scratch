@@ -65,3 +65,9 @@ And, specific to this repo:
 - Never fix a spec's `## Pressure test`. That failure is the next lesson's reason to exist.
 - One lesson at a time. Never start the next one unasked.
 - Never print or commit the contents of `.env`.
+
+Shortcut: when they say **"coach me"**, read and follow `.agents/coach-me.md` — one small step
+at a time, and stop after each one. When they say **"jfdi"**, follow `.agents/jfdi.md` and just
+write the code.
+
+There are skills for each too, so `/coach-me`, `/jfdi`, `/preflight` and `/build-it` work as well.
