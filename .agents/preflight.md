@@ -24,82 +24,42 @@ node -p "process.platform"
 Do not send anyone to WSL2 to get past this step. Windows is the least rehearsed platform here,
 so run the checks and let them say what is wrong.
 
-## 2 · Node and git
+## 2 · The environment
 
 ```sh
-node -v && git --version
+./env-check
 ```
 
-Node must be **22 or newer**. If it is older, say so and stop — nothing downstream will work,
-and `npm install` may appear to succeed anyway.
+On Windows, `sh env-check`. It checks, in order: Node is 22, 24 or 26 — the only lines every
+lesson's tests have been run on; git; `node_modules`; a `.env` with a key and a model; that the
+shell is not exporting a different `OPENROUTER_API_KEY` or `OPENROUTER_MODEL` over the top of
+`.env` (Node's `--env-file` never overrides the shell, so the shell one silently wins); and the
+check that matters — whether the model will actually emit a `tool_call`. A model that chats fine
+can still be unable to, and that failure does not surface until lesson 4, silently, in the
+middle of a lesson everyone else has finished.
 
-## 3 · Dependencies
+It stops at the first failure and prints the fix. Do the fix — run `npm install`, copy
+`.env.example`, or send them to <https://openrouter.ai/keys> — then run it again until it says
+"You're set up".
 
-```sh
-[ -d node_modules ] && echo installed || npm install
-```
+Never print the key, never echo `.env`, and never put it in a commit.
 
-## 4 · A key
-
-```sh
-[ -f .env ] && grep -q '^OPENROUTER_API_KEY=sk-' .env && echo "key present" || echo "NO KEY"
-```
-
-If there is no `.env`, `cp .env.example .env`. If the key is missing or does not start with
-`sk-`, send them to <https://openrouter.ai/keys> and stop. The default model is free and needs
-no credit card.
-
-Never print the key, never echo the file, and never put it in a commit.
-
-## 5 · The model can call tools
-
-This is the check that matters, and the one people skip. A model that chats fine can still be
-unable to emit a `tool_call` — and that failure does not surface until lesson 4, silently, in
-the middle of a lesson everyone else has finished.
-
-So ping it with a tool and see whether it asks to use it:
-
-```sh
-set -a; . ./.env; set +a
-curl -s https://openrouter.ai/api/v1/chat/completions \
-  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "'"$OPENROUTER_MODEL"'",
-    "messages": [{"role":"user","content":"Read the file package.json"}],
-    "tools": [{"type":"function","function":{
-      "name":"read_file",
-      "description":"Read a file from disk",
-      "parameters":{"type":"object","properties":{"path":{"type":"string"}},"required":["path"]}
-    }}]
-  }' | head -c 2000
-```
-
-Read the response:
-
-- `"finish_reason": "tool_calls"` with a `tool_calls` array — **pass.** This model carries all
-  ten lessons.
-- A normal text reply and `"finish_reason": "stop"` — the model will not call tools. Switch
-  models before starting.
-- HTTP 429, or a `rate limit` message — read which one it is. `free-models-per-min` is your own
-  account's cap of 20 requests a minute across every free model, and waiting a minute clears it.
-  Anything naming the provider is that provider throttling its free tier, and only switching
-  models clears it.
-- `401` — the key is wrong or not yet active.
-
-To switch, change one line in `.env`:
+If it says the model answered with text instead of calling the tool, or that a provider is rate
+limiting it, switch models. Change one line in `.env`:
 
 ```sh
 OPENROUTER_MODEL=openai/gpt-5.6-luna
 ```
 
 A whole workshop costs cents, and it is the one that holds up best once the agent is running
-many tools at once. Nothing else in the repo changes.
+many tools at once. Nothing else in the repo changes. A `free-models-per-min` limit is different:
+that is their own account's cap of 20 requests a minute across every free model, and waiting a
+minute clears it.
 
 Do not switch to `google/gemini-3.7-flash`. It passes this check and then breaks in lesson 10;
 the README says why.
 
-## 6 · The starting line
+## 3 · The starting line
 
 ```sh
 npm test
@@ -115,7 +75,7 @@ the only automated check of `src/cli.ts` in the repo. That is issue #1's code pa
 red lesson 1 on Windows, with everything above green, is the open bug and not their setup — that
 is the one case where WSL2 is worth the install.
 
-## 7 · Their agent
+## 4 · Their agent
 
 Already proven: they are reading this because their coding agent found it. If it found this
 file, it can find the lesson specs and the ledger.
@@ -127,6 +87,6 @@ not to make them sit through this again when the session starts.
 
 ## Report
 
-Seven lines, one per check, `pass` or what to fix. Then either "You're ready — say **coach me**
-to start lesson 2" or the single most important thing to fix first. Do not list every problem
-at once; give them one thing to do.
+One line per check — the six `./env-check` prints, the tests, their agent — `pass` or what to
+fix. Then either "You're ready — say **coach me** to start lesson 2" or the single most
+important thing to fix first. Do not list every problem at once; give them one thing to do.

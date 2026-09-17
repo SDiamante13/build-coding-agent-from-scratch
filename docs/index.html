@@ -200,7 +200,7 @@
     <div>
       <div class="card">
         <h3>1 · Clone it</h3>
-        <pre><span class="c"># Node 22 or newer, and git — check with node -v</span>
+        <pre><span class="c"># Node 22, 24 or 26 (24 LTS is best), and git</span>
 git clone https://github.com/SDiamante13/build-coding-agent-from-scratch
 cd build-coding-agent-from-scratch
 npm install
@@ -216,8 +216,9 @@ cp .env.example .env</pre>
 
       <div class="card">
         <h3>3 · Prove it works</h3>
-        <pre>npm start                 <span class="c"># then ask it anything</span></pre>
-        <p>A reply means you are ready.</p>
+        <pre>./env-check               <span class="c"># Node, key, and that your model calls tools</span>
+npm start                 <span class="c"># then ask it anything</span></pre>
+        <p>Six passes and a reply mean you are ready.</p>
       </div>
     </div>
 
