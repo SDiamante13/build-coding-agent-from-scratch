@@ -105,6 +105,17 @@
   #start .card { padding: 10px 15px; margin-bottom: 7px; }
   .qr { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
   #takeaways .qr { max-width: clamp(140px, 24vh, 230px); margin-top: 12px; }
+  #about .cols, #course .cols { flex: 1; align-content: center; }
+  #course .cols { align-items: center; }
+  #about .card, #course .card { padding: clamp(14px, 2.2vh, 24px) clamp(18px, 2vw, 32px); margin-bottom: 0; }
+  #about .card h3, #course .card h3 { font-size: clamp(18px, min(2.5vw, 3.9vh), 37px); margin-bottom: 4px; }
+  #about .card .role { font-size: clamp(13px, 1.4vw, 18px); color: var(--muted); margin-bottom: clamp(10px, 2.4vh, 24px); }
+  #about .card ul, #course .card ul { padding-left: 22px; }
+  #about .card li, #course .card li { font-size: clamp(14px, min(1.8vw, 3vh), 27px); line-height: 1.45; margin-bottom: clamp(10px, 2.6vh, 32px); }
+  #about .card li:last-child, #course .card li:last-child { margin-bottom: 0; }
+  #course .card h3 { margin-bottom: clamp(10px, 2.4vh, 24px); }
+  #course .qr { max-width: clamp(200px, 44vh, 400px); margin-top: 8px; }
+  #course .qr-url { font-size: clamp(13px, 1.4vw, 18px); }
   .qr-url { font-family: var(--mono); font-size: clamp(10px, 1vw, 12.5px); color: var(--text); word-break: break-all; margin: 9px 0 0; }
 
   pre {
@@ -152,8 +163,37 @@
 </head>
 <body>
 
-<!-- 0 ─ what today is -->
-<section class="screen on" id="intro">
+<!-- 0 ─ about us -->
+<section class="screen on" id="about">
+  <div class="eyebrow">Who we are</div>
+  <h1>About us</h1>
+  <p class="sub">Two people who build software with coding agents every day, and want you to see what is inside one.</p>
+
+  <div class="cols">
+    <div class="card">
+      <h3>Matt Wynne</h3>
+      <p class="role">Lean Software Production · <a href="https://leansoftware.ai" target="_blank" rel="noopener noreferrer">leansoftware.ai</a></p>
+      <ul>
+        <li><b>Co-founded Cucumber</b> in 2008 and co-wrote <em>The Cucumber Book</em>.</li>
+        <li><b>Invented Example Mapping</b>, and has spent fifteen years helping teams talk about what they are building before they build it.</li>
+        <li><b>Now teaches engineers to run agents hands-off</b> — code you can deploy without reading every line.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Steven Diamante</h3>
+      <p class="role">Diamante Technical Coaching · Raleigh, NC</p>
+      <ul>
+        <li><b>Technical coach</b> — TDD, refactoring, pairing and ensemble programming, on real code with real teams.</li>
+        <li><b>Ships production software with Claude Code daily</b>, and is an Anthropic certified architect.</li>
+        <li><b>Speaks on code quality and coding agents</b>: agents give you speed, craftsmanship gives you confidence.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 1 ─ what today is -->
+<section class="screen" id="intro">
   <div class="eyebrow">Before we start</div>
   <h1>What are we doing today?</h1>
   <p class="sub">Ten lessons, and an agent that writes code you did not write.</p>
@@ -190,7 +230,7 @@
   <p class="sub" style="margin: 9px 0 0">Setup is next, and the API key is the only slow part. Start it the moment it is on screen.</p>
 </section>
 
-<!-- 1 ─ start here -->
+<!-- 2 ─ start here -->
 <section class="screen" id="start">
   <div class="eyebrow">Matt Wynne &amp; Steven Diamante · 23 Sept 2026</div>
   <h1>Build a coding agent from scratch</h1>
@@ -231,7 +271,7 @@ npm start                 <span class="c"># then ask it anything</span></pre>
   </div>
 </section>
 
-<!-- 2 ─ the agentic loop -->
+<!-- 3 ─ the agentic loop -->
 <section class="screen">
   <div class="eyebrow">Lesson 1–3 · the whole idea</div>
   <h1>An agent is a while loop around one HTTP call</h1>
@@ -286,7 +326,7 @@ npm start                 <span class="c"># then ask it anything</span></pre>
   </figure>
 </section>
 
-<!-- 3 ─ tool calling -->
+<!-- 4 ─ tool calling -->
 <section class="screen">
   <div class="eyebrow">Lesson 4–9 · the part everyone gets wrong</div>
   <h1>One tool use means calling the model <em>twice</em></h1>
@@ -361,7 +401,7 @@ npm start                 <span class="c"># then ask it anything</span></pre>
   </figure>
 </section>
 
-<!-- 4 ─ all the lessons -->
+<!-- 5 ─ all the lessons -->
 <section class="screen">
   <div class="eyebrow">The map · 10 lessons</div>
   <h1>Every lesson ends by breaking</h1>
@@ -385,7 +425,7 @@ npm start                 <span class="c"># then ask it anything</span></pre>
   </table>
 </section>
 
-<!-- 5 ─ coach mode -->
+<!-- 6 ─ coach mode -->
 <section class="screen">
   <div class="eyebrow">How you'll build it</div>
   <h1>Your coding agent coaches you through it</h1>
@@ -425,7 +465,7 @@ npm test -- lesson-04     <span class="c"># npm start to run it</span></pre>
   </div>
 </section>
 
-<!-- 6 ─ takeaways -->
+<!-- 7 ─ takeaways -->
 <section class="screen" id="takeaways">
   <div class="eyebrow">What to remember</div>
   <h1>Three tools and a while loop</h1>
@@ -452,6 +492,35 @@ npm test -- lesson-04     <span class="c"># npm start to run it</span></pre>
   </div>
 </section>
 
+<!-- 8 ─ build a software factory -->
+<section class="screen" id="course">
+  <div class="eyebrow">Where to go next</div>
+  <h1>Build a Software Factory</h1>
+  <p class="sub">Hands-off agentic coding for experienced engineers — Matt's live cohort course.</p>
+
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h3>You built the agent. Now trust one to build for you.</h3>
+        <ul>
+          <li><b>For developers already using agents</b> who still read every line before they ship it — or are drowning in agentic pull requests.</li>
+          <li><b>Move from prompting to architecting</b> a system that turns out code you can deploy with confidence, without reviewing it all.</li>
+          <li><b>Live cohort, 29 Sept – 23 Oct 2026.</b> Three hours of live sessions a week, plus practice and office hours.</li>
+          <li><b>Taught by Matt</b> with Aldric Giacomoni, David Laing and Jeremy Lightsmith.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="card hero" style="text-align: center">
+        <h3>Scan for the course page</h3>
+        <img class="qr" src="course-qr.png" alt="QR code linking to the Build a Software Factory course" width="300" height="300">
+        <p class="qr-url"><a href="https://leansoftware.ai/go/uvseju" target="_blank" rel="noopener noreferrer">leansoftware.ai/go/uvseju</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="bar">
   <div class="dots" id="dots"></div>
   <span class="title" id="title"></span>
@@ -462,7 +531,7 @@ npm test -- lesson-04     <span class="c"># npm start to run it</span></pre>
 
 <script>
   const screens = Array.from(document.querySelectorAll('.screen'));
-  const titles = ['What today is', 'Start here', 'The agentic loop', 'Tool calling', 'The 10 lessons', 'Coach mode', 'Takeaways'];
+  const titles = ['About us', 'What today is', 'Start here', 'The agentic loop', 'Tool calling', 'The 10 lessons', 'Coach mode', 'Takeaways', 'Software Factory'];
   const dots = document.getElementById('dots');
   let at = 0;
 
