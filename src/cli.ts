@@ -3,10 +3,9 @@ import { createInterface } from 'node:readline/promises';
 const terminal = createInterface({ input: process.stdin, output: process.stdout });
 const lines = terminal[Symbol.asyncIterator]();
 
-terminal.setPrompt('You: ');
-
+// terminal.prompt() pauses the input, and Node 24 drops a line already buffered when it does.
 export async function ask(): Promise<string> {
-  terminal.prompt();
+  process.stdout.write('You: ');
 
   const line = await lines.next();
 
