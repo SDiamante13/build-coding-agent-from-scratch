@@ -71,9 +71,9 @@ other lesson is a failing assertion waiting to become an instruction. They go gr
 time. If lesson 1 fails, something above is wrong — go back.
 
 Lesson 1's test spawns the real agent with piped input and checks it exits `0`, which makes it
-the only automated check of `src/cli.ts` in the repo. That is issue #1's code path exactly. So a
-red lesson 1 on Windows, with everything above green, is the open bug and not their setup — that
-is the one case where WSL2 is worth the install.
+the only automated check of `src/cli.ts` in the repo. CI runs it on Windows, macOS and Linux on
+every Node line `engines` admits, so a red lesson 1 with everything above green is something
+about this machine, not a known bug — read the failure rather than reaching for WSL2.
 
 ## 4 · Their agent
 
