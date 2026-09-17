@@ -11,22 +11,18 @@ passes, say so in one line and move on.
 
 ## 1 · The shell
 
-Every command in this file is POSIX shell. Windows PowerShell does not understand `&&`,
-`[ -d … ]` or `. ./.env`, so on a native Windows shell these checks do not fail — they do not
-run at all.
-
 ```sh
 node -p "process.platform"
 ```
 
-That line reads the same in any shell, because node is doing the interpreting, not the shell.
-
 - `darwin` or `linux` — carry on.
-- `win32` — stop. Nothing below is rehearsed on native Windows, and the terminal code in
-  `src/cli.ts` has an open bug there: issue #1. Open WSL2 (`wsl` from the Start menu), clone the
-  repo **inside** the Linux filesystem, and start again from there. Git Bash is not enough — it
-  gives you the POSIX commands but still the win32 build of node, so it fixes the first half of
-  the problem and not the second.
+- `win32` — carry on, and note two things. Every command below is POSIX shell, so this has to be
+  **Git Bash**, not PowerShell, which does not understand `&&`, `[ -d … ]` or `. ./.env`. And
+  Node comes from the nodejs.org installer, not `nvm` — POSIX `nvm` does not run on Windows at
+  all. Restart Git Bash after installing Node or it will still say `command not found`.
+
+Do not send anyone to WSL2 to get past this step. Windows is the least rehearsed platform here,
+so run the checks and let them say what is wrong.
 
 ## 2 · Node and git
 
@@ -113,8 +109,9 @@ other lesson is a failing assertion waiting to become an instruction. They go gr
 time. If lesson 1 fails, something above is wrong — go back.
 
 Lesson 1's test spawns the real agent with piped input and checks it exits `0`, which makes it
-the only automated check of `src/cli.ts` in the repo. That is issue #1's code path exactly, so a
-red lesson 1 on Windows is the bug and not their setup.
+the only automated check of `src/cli.ts` in the repo. That is issue #1's code path exactly. So a
+red lesson 1 on Windows, with everything above green, is the open bug and not their setup — that
+is the one case where WSL2 is worth the install.
 
 ## 7 · Their agent
 

@@ -4,6 +4,7 @@ import path from 'node:path';
 import type { FakeModel } from './fake-model.js';
 
 const projectRoot = path.resolve(import.meta.dirname, '..', '..');
+const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 export type Session = {
   readonly output: string;
@@ -34,7 +35,7 @@ function environment(model: FakeModel, apiKey: string | null): NodeJS.ProcessEnv
 
 // Spawned rather than imported, so the test says nothing about how the agent is built.
 export function runAgent({ model, input, apiKey = 'test-key' }: Run): Promise<Session> {
-  const agent = spawn('npx', ['tsx', 'src/index.ts'], {
+  const agent = spawn(npx, ['tsx', 'src/index.ts'], {
     cwd: projectRoot,
     env: environment(model, apiKey),
   });
