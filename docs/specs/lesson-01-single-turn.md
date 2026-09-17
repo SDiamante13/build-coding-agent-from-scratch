@@ -33,7 +33,7 @@ back to the imports, and the import block doubles as the list of parts.
 - Read `OPENROUTER_API_KEY` from the environment, via `.env`.
 - If the key is missing, print a short error and exit non-zero.
 - Ask the user for one prompt, labelled `You:`.
-- Use `OPENROUTER_MODEL`, or `minimax/minimax-m3:free` if it is unset.
+- Use `OPENROUTER_MODEL`, or `nex-agi/nex-n2.5-pro:free` if it is unset.
 - Print the reply, labelled `Assistant:`.
 - Exit after the reply.
 

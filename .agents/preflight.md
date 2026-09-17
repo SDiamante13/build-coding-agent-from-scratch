@@ -81,8 +81,10 @@ Read the response:
   ten lessons.
 - A normal text reply and `"finish_reason": "stop"` — the model will not call tools. Switch
   models before starting.
-- HTTP 429, or a `rate limit` message — the free default is shared and gets hammered when a
-  room full of people start at once. Switch models.
+- HTTP 429, or a `rate limit` message — read which one it is. `free-models-per-min` is your own
+  account's cap of 20 requests a minute across every free model, and waiting a minute clears it.
+  Anything naming the provider is that provider throttling its free tier, and only switching
+  models clears it.
 - `401` — the key is wrong or not yet active.
 
 To switch, change one line in `.env`:

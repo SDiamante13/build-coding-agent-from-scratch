@@ -7,7 +7,7 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const model = process.env.OPENROUTER_MODEL ?? 'minimax/minimax-m3:free';
+const model = process.env.OPENROUTER_MODEL ?? 'nex-agi/nex-n2.5-pro:free';
 const openRouter = new OpenRouter({ apiKey });
 
 export async function complete(userInput: string): Promise<string> {

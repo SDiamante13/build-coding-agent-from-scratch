@@ -20,40 +20,52 @@ cp .env.example .env
 
 ```sh
 OPENROUTER_API_KEY=sk-or-...
-OPENROUTER_MODEL=minimax/minimax-m3:free
+OPENROUTER_MODEL=nex-agi/nex-n2.5-pro:free
 ```
 
 That is the whole setup. `npm start` reads `.env` for you.
 
 ### Choosing a model
 
-The default costs nothing, so you can build the whole agent without spending anything — it is
-also the least reliable of the four, so if you would rather not lose time to it, put a few
-dollars of credit on your OpenRouter account and use `openai/gpt-5.6-luna`. A whole workshop
-costs cents. Any model that supports tool calling works; swap `OPENROUTER_MODEL` and nothing
-else changes.
+The default costs nothing, so you can build the whole agent without spending anything. Any model
+that supports tool calling works; swap `OPENROUTER_MODEL` and nothing else changes.
 
-| Model                     | Tools | Context | Cost per 1M in/out | Notes                                            |
-| ------------------------- | ----- | ------- | ------------------ | ------------------------------------------------ |
-| `openai/gpt-5.6-luna`     | yes   | 1M      | $0.20 / $1.20      | **recommended** — the only one with no known wall |
-| `minimax/minimax-m3:free` | yes   | 1M      | free               | the default — free, and asks for a tool 2 runs in 5 |
-| `google/gemma-4-31b-it`   | yes   | 256K    | $0.10 / $0.34      | the fastest — but answers from memory about files it thinks it knows |
-| `google/gemini-3.7-flash` | yes   | 1M      | $0.38 / $1.88      | **avoid** — breaks in lesson 10                  |
+| Model                                 | Tier   | Context | Cost per 1M in/out | Notes                                             |
+| ------------------------------------- | ------ | ------- | ------------------ | ------------------------------------------------- |
+| `nex-agi/nex-n2.5-pro:free`           | free   | 256K    | free               | the default — asked for a tool 5 runs in 5         |
+| `dots-studio/dots-3-note-preview:free`| free   | 512K    | free               | the fastest free one, and a different provider     |
+| `inception/mercury-2.5`               | cheap  | 260K    | $0.04 / $0.15      | a diffusion model — published throughput is ~470 tokens a second |
+| `z-ai/glm-5.3-flash`                  | cheap  | 1M      | $0.09 / $0.30      | the highest agentic benchmark score here, and ~20 providers behind it |
+| `z-ai/glm-4.7`                        | medium | 205K    | $0.40 / $1.75      | a step up in size when a free model starts arguing with you |
+| `openai/gpt-5.6-luna`                 | best   | 1M      | $0.20 / $1.20      | **recommended once you add credit** — no known wall |
 
-Each of those notes is something that was measured, not guessed:
+The two free models were measured on this repo. The four paid rows are published specs and
+benchmark scores, apart from `gpt-5.6-luna`, which was measured in an earlier run:
 
+- **`nex-n2.5-pro:free`** asked for a tool in 5 of 5 identical one-shot runs. Given
+  "make `ask()` in `src/cli.ts` return the input trimmed" it read the file, made the one-line
+  edit, ran `npm test` and `npm run typecheck`, checked its own diff, and reported the results
+  those commands actually printed. 70 seconds.
+- **`dots-3-note-preview:free`** also asked for a tool 5 times in 5, and finished the same
+  exercise in 19 seconds — the quickest of everything tried. It reads before it edits.
 - **`gpt-5.6-luna`** ran all ten lessons and the pressure tests. Nothing has gone wrong with it.
-- **`minimax/minimax-m3:free`** emitted a tool call in 2 of 5 identical one-shot runs — one
-  refusal, one 429 with a single caller, and one reply that **invented the file's contents** and
-  reported success. Lessons 04 to 10 need a tool call on nearly every turn. It does finish, and
-  it will cost you retries.
-- **`gemma-4-31b-it`** asks for a tool 5 times in 5, but will not read a file it believes it
-  already knows: asked what `src/index.ts` does, it answers fluently, correctly, and without
-  ever calling `read_file`. Neither a stronger tool description nor a system prompt moved it.
-- **`gemini-3.7-flash`** passes every preflight check and then dies part-way through lesson 10
-  with `Corrupted thought signature.` Gemini 3.x attaches encrypted reasoning to its replies and
-  wants it back byte-exact next request — a round trip this agent does not do and the lessons do
-  not teach. The failure arrives after nine lessons of everything working.
+
+Two warnings worth more than the table:
+
+- **The free tier is capped at 20 requests a minute, across every free model on your account.**
+  One prompt in lesson 10 can spend a dozen of them, because every tool call is another request.
+  If replies start failing on a free model, that cap is the first suspect. Adding credit lifts
+  it, and is what the paid rows are for.
+- **Do not use `google/gemini-3.7-flash`.** It passes every preflight check and then dies
+  part-way through lesson 10 with `Corrupted thought signature.` Gemini 3.x attaches encrypted
+  reasoning to its replies and wants it back byte-exact next request — a round trip this agent
+  does not do and the lessons do not teach. The failure arrives after nine lessons of everything
+  working.
+
+Free models also come and go. `poolside/laguna-s-2.1:free` was in this table until it started
+answering every request with an upstream 429, and `minimax/minimax-m3:free` was the default
+until it was caught inventing a file's contents and reporting success. If the default is having
+a bad day, take the other free row.
 
 Prices and context limits for every model are at
 [openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low).
