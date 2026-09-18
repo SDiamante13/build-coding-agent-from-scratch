@@ -113,6 +113,9 @@
   #about .card ul, #course .card ul { padding-left: 22px; }
   #about .card li, #course .card li { font-size: clamp(14px, min(1.8vw, 3vh), 27px); line-height: 1.45; margin-bottom: clamp(10px, 2.6vh, 32px); }
   #about .card li:last-child, #course .card li:last-child { margin-bottom: 0; }
+  #about .who { display: flex; align-items: center; gap: clamp(12px, 1.6vw, 22px); margin-bottom: clamp(10px, 2.4vh, 24px); }
+  #about .who .role { margin-bottom: 0; }
+  #about .headshot { width: clamp(64px, 13vh, 120px); height: auto; border-radius: 50%; flex: 0 0 auto; }
   #about .card .contact { font-size: clamp(13px, 1.4vw, 18px); margin: clamp(10px, 2.4vh, 24px) 0 0; }
   #course .card h3 { margin-bottom: clamp(10px, 2.4vh, 24px); }
   #course .qr { max-width: clamp(200px, 44vh, 400px); margin-top: 8px; }
@@ -171,8 +174,13 @@
 
   <div class="cols">
     <div class="card">
-      <h3>Matt Wynne</h3>
-      <p class="role">Lean Software Production · <a href="https://leansoftware.ai" target="_blank" rel="noopener noreferrer">leansoftware.ai</a></p>
+      <div class="who">
+        <img class="headshot" src="matt.jpg" alt="Matt Wynne" width="480" height="480">
+        <div>
+          <h3>Matt Wynne</h3>
+          <p class="role">Lean Software Production · <a href="https://leansoftware.ai" target="_blank" rel="noopener noreferrer">leansoftware.ai</a></p>
+        </div>
+      </div>
       <ul>
         <li><b>Co-founded Cucumber</b> in 2008 and co-wrote <em>The Cucumber Book</em>.</li>
         <li><b>Invented Example Mapping</b>, and has spent fifteen years helping teams talk about what they are building before they build it.</li>
