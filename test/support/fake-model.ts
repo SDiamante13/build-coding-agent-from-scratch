@@ -2,7 +2,7 @@ import { createServer, type IncomingMessage, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import type { ServerResponse } from 'node:http';
 
-import { completionFor, type Reply } from './model-script.js';
+import { completionFor, statusFor, type Reply } from './model-script.js';
 
 export type Message = {
   readonly role: string;
@@ -73,7 +73,7 @@ export async function startFakeModel(script: readonly Reply[]): Promise<FakeMode
 
         const reply = script[requests.length - 1];
 
-        if (reply) send(response, 200, completionFor(reply));
+        if (reply) send(response, statusFor(reply), completionFor(reply));
         else offScript(response, requests.length);
       })
       .catch(() => response.destroy());
