@@ -33,7 +33,8 @@ once.
 9. Set that one row to `WIP`. Do not commit it on its own.
 10. Introduce the lesson in no more than five lines:
     - **Goal** — the behavior being added, in plain language.
-    - **Steps** — the two to four small changes that get there.
+    - **Steps** — the small changes that get there, usually two to four. Lesson 5 is the
+      largest and takes five.
     Nothing else. No preamble, no history, no motivation they did not ask for.
 11. **Present** the first step in the shape below — do not perform it.
 12. **Stop. Wait for them.** Do not continue, do not fill the silence, do not start the next
@@ -115,6 +116,40 @@ and move on. Do not sit in a retry loop — the room is moving.
 Some pressure tests ask you to set up a deliberate failure — lesson 10 has you create a
 scratch test and break it, to show the agent gaming it. That is allowed and it is the point.
 Delete the scratch files afterwards so the tree is clean before you commit.
+
+## Reading the log
+
+From lesson 5 on, the agent writes `logs/session-<timestamp>.log`, and it holds far more than
+the screen: every request sent to the model, every reply, what each tool answered, and the
+status code, body and stack of anything that failed.
+
+When the gate or the pressure test goes wrong after lesson 5, read the newest log before you
+theorise about why. Start with the headlines, which are the only lines that begin at column
+zero, and jump to the line number you want:
+
+```sh
+grep -n '^\[' "$(ls -t logs/*.log | head -1)" | tail -20
+```
+
+```text
+1:[…45.858Z] You: compare src/cli.ts and src/llm.ts
+2:[…45.858Z] --> request 1
+34:[…51.775Z] <-- reply 1 after 5917ms
+104:[…51.776Z] → read_file {"path":"src/cli.ts"}
+```
+
+Do not `tail` it blind. A reply block runs to seventy lines, and a model that returns its
+reasoning can make one far longer than that.
+
+The log answers most of what you would otherwise guess at — whether the model was sent what they
+think it was sent, whether it asked for one tool call or two, what a tool actually returned,
+and whether a crash came from OpenRouter or from their code. Say which line told you, so they
+learn to read it themselves rather than taking your word for it.
+
+Lesson 5's own pressure test is the clearest example: one arrow on screen, and a reply in the
+log asking for two files. The dropped call is evidence there, not inference.
+
+Before lesson 5 there is no log. Do not send them looking for one.
 
 ## If they are stuck or behind
 
