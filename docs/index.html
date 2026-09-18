@@ -106,7 +106,7 @@
   .qr { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
   #takeaways .qr { max-width: clamp(140px, 24vh, 230px); margin-top: 12px; }
   #about .cols, #course .cols { flex: 1; align-content: center; }
-  #course .cols { align-items: center; }
+  #course .cols { align-items: center; grid-template-columns: 1.5fr .75fr .75fr; gap: 18px; }
   #about .card, #course .card { padding: clamp(14px, 2.2vh, 24px) clamp(18px, 2vw, 32px); margin-bottom: 0; }
   #about .card h3, #course .card h3 { font-size: clamp(18px, min(2.5vw, 3.9vh), 37px); margin-bottom: 4px; }
   #about .card .role { font-size: clamp(13px, 1.4vw, 18px); color: var(--muted); margin-bottom: clamp(10px, 2.4vh, 24px); }
@@ -118,8 +118,11 @@
   #about .headshot { width: clamp(64px, 13vh, 120px); height: auto; border-radius: 50%; flex: 0 0 auto; }
   #about .card .contact { font-size: clamp(13px, 1.4vw, 18px); margin: clamp(10px, 2.4vh, 24px) 0 0; }
   #course .card h3 { margin-bottom: clamp(10px, 2.4vh, 24px); }
-  #course .qr { max-width: clamp(200px, 44vh, 400px); margin-top: 8px; }
-  #course .qr-url { font-size: clamp(13px, 1.4vw, 18px); }
+  #course .qr { max-width: clamp(150px, 28vh, 260px); margin-top: 8px; }
+  #course .qr-url { font-size: clamp(11px, 1vw, 14px); word-break: normal; }
+  #course .card.hero { padding: clamp(12px, 2vh, 20px) clamp(10px, 1vw, 16px); }
+  #course .card.hero h3 { font-size: clamp(15px, min(1.7vw, 2.6vh), 24px); margin-bottom: 4px; }
+  #course .card.hero p { font-size: clamp(11px, 1.05vw, 14px); }
   .qr-url { font-family: var(--mono); font-size: clamp(10px, 1vw, 12.5px); color: var(--text); word-break: break-all; margin: 9px 0 0; }
 
   pre {
@@ -151,6 +154,7 @@
   .bar .repo .short { display: none; }
   @media (max-width: 760px) {
     .cols, .cols.three { grid-template-columns: 1fr; gap: 14px; }
+    #course .cols { grid-template-columns: 1fr; }
     .cols.three .card { margin-bottom: 0; }
     #intro .cols { align-content: start; }
     #intro .card { padding: 14px 17px; }
@@ -519,9 +523,18 @@ npm test -- lesson-04     <span class="c"># npm start to run it</span></pre>
 
     <div>
       <div class="card hero" style="text-align: center">
-        <h3>Scan for the course page</h3>
+        <h3>The course</h3>
         <img class="qr" src="course-qr.png" alt="QR code linking to the Build a Software Factory course" width="300" height="300">
         <p class="qr-url"><a href="https://leansoftware.ai/go/uvseju" target="_blank" rel="noopener noreferrer">leansoftware.ai/go/uvseju</a></p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card hero" style="text-align: center">
+        <h3>Steven's links</h3>
+        <p>Newsletter, Claude Code skills, and a way to reach me.</p>
+        <img class="qr" src="dtc-linktree.png" alt="QR code linking to Diamante Tech Coaching's Linktree" width="300" height="300">
+        <p class="qr-url"><a href="https://linktr.ee/diamanteTechCoaching" target="_blank" rel="noopener noreferrer">linktr.ee/diamanteTechCoaching</a></p>
       </div>
     </div>
   </div>
