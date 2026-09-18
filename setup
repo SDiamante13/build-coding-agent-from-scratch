@@ -84,7 +84,6 @@ const message = body.error?.message ?? '';
 const status = body.error?.code ?? response.status;
 
 if (status === 401) fail('OpenRouter rejected the key', 'Check OPENROUTER_API_KEY in .env — the key is wrong or not yet active.');
-if (status === 429 && message.includes('free-models-per-min')) fail(`${model} is rate limited`, 'That is your own account\'s cap of 20 free requests a minute. Wait a minute and run ./setup --check again.');
 if (status === 429) fail(`${model} is rate limited by its provider`, 'Only switching models clears that. Set OPENROUTER_MODEL=openai/gpt-5.6-luna in .env — it costs cents.');
 if (body.error || !response.ok) fail(`${model} returned ${status}`, message || 'Try again, or switch OPENROUTER_MODEL in .env.');
 

@@ -15,11 +15,12 @@ run on all three; `npm install` refuses anything else rather than letting it fai
 ./setup
 ```
 
-It installs dependencies, then prompts for a key from
-[openrouter.ai/keys](https://openrouter.ai/keys) — hidden input, verified against OpenRouter,
-and written to `.env`, which is gitignored so your key never leaves your machine. It finishes by
-proving your model can actually call a tool, the failure that otherwise waits until lesson 4 to
-surface.
+It installs dependencies, then prompts for a key — paste in the one handed out for the session, or
+make your own at [openrouter.ai/keys](https://openrouter.ai/keys). Hidden input, verified against
+OpenRouter, and written to `.env`, which is gitignored so the key never leaves your machine. Paste
+it at the prompt rather than exporting it in your shell: Node's `--env-file` never overrides a
+shell variable, so an exported one silently wins and `./setup` stops you. It finishes by proving
+your model can actually call a tool, the failure that otherwise waits until lesson 4 to surface.
 
 That is the whole setup. `npm start` reads `.env` for you. To check it again later — before the
 workshop, say — run:
@@ -33,45 +34,28 @@ fix. On Windows, run either as `sh setup` (or `sh setup --check`) from Git Bash.
 
 ### Choosing a model
 
-The default costs nothing, so you can build the whole agent without spending anything. Any model
-that supports tool calling works; swap `OPENROUTER_MODEL` and nothing else changes.
+Every model here costs money, and a whole workshop costs a few cents. Any model that supports
+tool calling works; swap `OPENROUTER_MODEL` and nothing else changes.
 
-| Model                                 | Tier   | Context | Cost per 1M in/out | Notes                                             |
-| ------------------------------------- | ------ | ------- | ------------------ | ------------------------------------------------- |
-| `nex-agi/nex-n2.5-pro:free`           | free   | 256K    | free               | the default — asked for a tool 5 runs in 5         |
-| `dots-studio/dots-3-note-preview:free`| free   | 512K    | free               | the fastest free one, and a different provider     |
-| `inception/mercury-2.5`               | cheap  | 260K    | $0.04 / $0.15      | a diffusion model — published throughput is ~470 tokens a second |
-| `z-ai/glm-5.3-flash`                  | cheap  | 1M      | $0.09 / $0.30      | the highest agentic benchmark score here, and ~20 providers behind it |
-| `z-ai/glm-4.7`                        | medium | 205K    | $0.40 / $1.75      | a step up in size when a free model starts arguing with you |
-| `openai/gpt-5.6-luna`                 | best   | 1M      | $0.20 / $1.20      | **recommended once you add credit** — no known wall |
+| Model                             | Context | Cost per 1M in/out | Notes                                                                 |
+| --------------------------------- | ------- | ------------------ | --------------------------------------------------------------------- |
+| `deepseek/deepseek-v4-flash-0731` | 1M      | $0.06 / $0.12      | the default — the cheapest one that still scores well, and ~28 providers behind it |
+| `inception/mercury-2.5`           | 260K    | $0.04 / $0.15      | a diffusion model — published throughput is ~470 tokens a second      |
+| `z-ai/glm-5.3-flash`              | 1M      | $0.09 / $0.30      | the highest agentic benchmark score here                              |
+| `openai/gpt-5.6-luna`             | 1M      | $0.10 / $0.60      | **the one to switch to if the default argues with you** — no known wall |
 
-The two free models were measured on this repo. The four paid rows are published specs and
-benchmark scores, apart from `gpt-5.6-luna`, which was measured in an earlier run:
+Three of those rows are published specs and benchmark scores. `gpt-5.6-luna` is the exception —
+it ran all ten lessons and the pressure tests in an earlier run, and nothing has gone wrong with
+it. The default has not been through all ten yet; if it lets you down, take the last row.
 
-- **`nex-n2.5-pro:free`** asked for a tool in 5 of 5 identical one-shot runs. Given
-  "make `ask()` in `src/cli.ts` return the input trimmed" it read the file, made the one-line
-  edit, ran `npm test` and `npm run typecheck`, checked its own diff, and reported the results
-  those commands actually printed. 70 seconds.
-- **`dots-3-note-preview:free`** also asked for a tool 5 times in 5, and finished the same
-  exercise in 19 seconds — the quickest of everything tried. It reads before it edits.
-- **`gpt-5.6-luna`** ran all ten lessons and the pressure tests. Nothing has gone wrong with it.
+One warning worth more than the table: **do not use `google/gemini-3.7-flash`.** It passes every
+preflight check and then dies part-way through lesson 10 with `Corrupted thought signature.`
+Gemini 3.x attaches encrypted reasoning to its replies and wants it back byte-exact next request
+— a round trip this agent does not do and the lessons do not teach. The failure arrives after
+nine lessons of everything working.
 
-Two warnings worth more than the table:
-
-- **The free tier is capped at 20 requests a minute, across every free model on your account.**
-  One prompt in lesson 10 can spend a dozen of them, because every tool call is another request.
-  If replies start failing on a free model, that cap is the first suspect. Adding credit lifts
-  it, and is what the paid rows are for.
-- **Do not use `google/gemini-3.7-flash`.** It passes every preflight check and then dies
-  part-way through lesson 10 with `Corrupted thought signature.` Gemini 3.x attaches encrypted
-  reasoning to its replies and wants it back byte-exact next request — a round trip this agent
-  does not do and the lessons do not teach. The failure arrives after nine lessons of everything
-  working.
-
-Free models also come and go. `poolside/laguna-s-2.1:free` was in this table until it started
-answering every request with an upstream 429, and `minimax/minimax-m3:free` was the default
-until it was caught inventing a file's contents and reporting success. If the default is having
-a bad day, take the other free row.
+If you were handed a shared key for the workshop, the credit behind it is someone else's. Stay on
+the default or one of the rows above; the expensive end of OpenRouter spends it fast.
 
 Prices and context limits for every model are at
 [openrouter.ai/models](https://openrouter.ai/models?order=coding-high-to-low).
