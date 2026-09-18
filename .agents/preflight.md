@@ -27,20 +27,23 @@ so run the checks and let them say what is wrong.
 ## 2 · The environment
 
 ```sh
-./env-check
+./setup --check
 ```
 
-On Windows, `sh env-check`. It checks, in order: Node is 22, 24 or 26 — the only lines every
-lesson's tests have been run on; git; `node_modules`; a `.env` with a key and a model; that the
-shell is not exporting a different `OPENROUTER_API_KEY` or `OPENROUTER_MODEL` over the top of
-`.env` (Node's `--env-file` never overrides the shell, so the shell one silently wins); and the
-check that matters — whether the model will actually emit a `tool_call`. A model that chats fine
-can still be unable to, and that failure does not surface until lesson 4, silently, in the
-middle of a lesson everyone else has finished.
+On Windows, `sh setup --check`. `--check` only reports what's missing — it never installs or
+prompts, so you can run it without risking a hang waiting on input. It checks, in order: Node is
+22, 24 or 26 — the only lines every lesson's tests have been run on; git; `node_modules`; an
+OpenRouter key and a model in `.env`; that the shell is not exporting a different
+`OPENROUTER_API_KEY` or `OPENROUTER_MODEL` over the top of `.env` (Node's `--env-file` never
+overrides the shell, so the shell one silently wins); and the check that matters — whether the
+model will actually emit a `tool_call`. A model that chats fine can still be unable to, and that
+failure does not surface until lesson 4, silently, in the middle of a lesson everyone else has
+finished.
 
-It stops at the first failure and prints the fix. Do the fix — run `npm install`, copy
-`.env.example`, or send them to <https://openrouter.ai/keys> — then run it again until it says
-"You're set up".
+It stops at the first failure and prints the fix. Most fixes are one command, `./setup` — it
+installs dependencies and prompts for an OpenRouter key itself (hidden input, verified against
+OpenRouter, written to `.env`). Run it in **their** terminal, not through a tool call — it waits
+on typed input. Then run `./setup --check` again until it says "You're set up".
 
 Never print the key, never echo `.env`, and never put it in a commit.
 
@@ -87,6 +90,6 @@ not to make them sit through this again when the session starts.
 
 ## Report
 
-One line per check — the six `./env-check` prints, the tests, their agent — `pass` or what to
+One line per check — the six `./setup --check` prints, the tests, their agent — `pass` or what to
 fix. Then either "You're ready — say **coach me** to start lesson 2" or the single most
 important thing to fix first. Do not list every problem at once; give them one thing to do.

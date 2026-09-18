@@ -114,6 +114,22 @@ export default defineConfig(
     rules: specSuiteRules,
   },
   {
+    // Setup tooling, not taught lesson code: parseable TypeScript, not held to the src/test bar.
+    files: ['scripts/**/*.ts'],
+    extends: [tseslint.configs.base],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: path.resolve(import.meta.dirname, '..'),
+      },
+    },
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': unusedVars,
+      '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
     files: ['src/domain/**/*.ts', 'src/ports/**/*.ts'],
     rules: {
       'no-restricted-imports': ['error', boundaryImports],

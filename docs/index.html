@@ -248,26 +248,23 @@
   <div class="cols">
     <div>
       <div class="card">
-        <h3>1 · Clone it</h3>
+        <h3>1 · Clone it and run setup</h3>
         <pre><span class="c"># Node 22, 24 or 26 (24 LTS is best), and git</span>
 git clone https://github.com/SDiamante13/build-coding-agent-from-scratch
 cd build-coding-agent-from-scratch
-npm install
-cp .env.example .env</pre>
+./setup</pre>
       </div>
 
       <div class="card hero">
         <h3>2 · An OpenRouter key — the only slow part</h3>
-        <p>Sign up at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">openrouter.ai/keys</a>, create a key, and paste it into the <code>.env</code> you just copied. <b style="color:var(--accent)">Start this now</b> — everything else is one command.</p>
-        <pre>OPENROUTER_API_KEY=sk-or-...</pre>
-        <p>The default model is free — no credit card. <code>.env</code> is gitignored.</p>
+        <p>Partway through, <code>./setup</code> asks for a key. Sign up at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">openrouter.ai/keys</a>, create one, and paste it in — it's verified and saved to the gitignored <code>.env</code> for you. <b style="color:var(--accent)">Start this now</b> — everything else is one command.</p>
+        <p>The default model is free — no credit card.</p>
       </div>
 
       <div class="card">
         <h3>3 · Prove it works</h3>
-        <pre>./env-check               <span class="c"># Node, key, and that your model calls tools</span>
-npm start                 <span class="c"># then ask it anything</span></pre>
-        <p>Six passes and a reply mean you are ready.</p>
+        <pre>npm start                 <span class="c"># then ask it anything</span></pre>
+        <p><code>./setup</code> already proved Node, your key, and that your model calls tools. A reply here means you are ready.</p>
       </div>
     </div>
 

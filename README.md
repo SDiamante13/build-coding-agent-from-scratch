@@ -12,26 +12,24 @@ Node.js 22, 24 or 26 — 24 LTS is the one to install — and git. Every lesson'
 run on all three; `npm install` refuses anything else rather than letting it fail mid-lesson.
 
 ```sh
-npm install
-cp .env.example .env
+./setup
 ```
 
-`.env` is gitignored, so your key stays on your machine. Open it and paste in a key from
-[openrouter.ai/keys](https://openrouter.ai/keys):
+It installs dependencies, then prompts for a key from
+[openrouter.ai/keys](https://openrouter.ai/keys) — hidden input, verified against OpenRouter,
+and written to `.env`, which is gitignored so your key never leaves your machine. It finishes by
+proving your model can actually call a tool, the failure that otherwise waits until lesson 4 to
+surface.
+
+That is the whole setup. `npm start` reads `.env` for you. To check it again later — before the
+workshop, say — run:
 
 ```sh
-OPENROUTER_API_KEY=sk-or-...
-OPENROUTER_MODEL=nex-agi/nex-n2.5-pro:free
+./setup --check
 ```
 
-That is the whole setup. `npm start` reads `.env` for you. To check it before the workshop:
-
-```sh
-./env-check
-```
-
-It stops at the first thing to fix and says what to do — on Windows, run it as `sh env-check`
-from Git Bash.
+It only reports what's missing, without installing or prompting, and stops at the first thing to
+fix. On Windows, run either as `sh setup` (or `sh setup --check`) from Git Bash.
 
 ### Choosing a model
 
@@ -121,7 +119,7 @@ system prompt is the thing to change — not the code.
 
 ## Get started
 
-Open your coding agent in this directory and say **"preflight"** — it runs `./env-check` for
+Open your coding agent in this directory and say **"preflight"** — it runs `./setup --check` for
 you, which checks Node, your key, and that your model can actually call tools, the failure that
 otherwise waits until lesson 4 to surface.
 
@@ -189,4 +187,5 @@ git diff lesson-3-conversation lesson-4-read-file
 - `test/` — an acceptance test per lesson, and the fake model they run against
 - `docs/index.html` — the five screens used in the session, published at the link above
 - `kata/bowling/` — the finale. One README and nothing else; your agent writes the rest
+- `scripts/set-key.ts` — the interactive key prompt `./setup` calls
 - `sensors/` — authoring tooling for the maintainers. Not part of the workshop; ignore it.

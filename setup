@@ -1,35 +1,52 @@
 #!/bin/sh
-# Checks this machine can run the workshop, and stops at the first thing to fix.
-# Run it as ./env-check — or `sh env-check` in Git Bash on Windows.
-
-cd "$(dirname "$0")" || exit 1
-
-# The lines every lesson's acceptance test has been run on. Keep package.json "engines" in step.
-KNOWN_NODE_MAJORS="22 24 26"
+# One-time setup after cloning. Run it with: ./setup
+# It checks for the tools you need, installs dependencies, gets your OpenRouter key into .env,
+# then proves the model can actually call a tool - the failure that otherwise waits until lesson 4.
+#
+# With --check, it only reports what's missing instead of installing or prompting -
+# for a coding agent (or CI) to run to verify things are ready, without risking a hang on input.
+set -e
+cd "$(dirname "$0")"
+check_only=false
+[ "$1" = "--check" ] && check_only=true
 
 pass() { printf 'pass  %s\n' "$1"; }
 fail() { printf 'FAIL  %s\n\n      %s\n' "$1" "$2"; exit 1; }
 
 command -v node >/dev/null 2>&1 || fail "Node is not installed" \
-  "Install Node 24 LTS from https://nodejs.org, then open a new terminal and run ./env-check again."
+  "Install Node 24 LTS from https://nodejs.org, then open a new terminal and run ./setup again."
 
+# The lines every lesson's acceptance test has been run on, read straight from package.json
+# "engines" so this never drifts out of step with it.
+known_majors=$(node -p "require('./package.json').engines.node.split('||').map(s => s.trim().match(/\d+/)[0]).join(' ')")
+known_majors_prose=$(echo "$known_majors" | sed 's/ /, /g' | sed 's/, \([0-9]*\)$/ or \1/')
 major=$(node -p 'process.versions.node.split(".")[0]')
-case " $KNOWN_NODE_MAJORS " in
+case " $known_majors " in
   *" $major "*) pass "Node $(node -v)" ;;
   *) fail "Node $(node -v) is not a version this workshop has been tested on" \
-    "Use Node 22, 24 or 26. Node 24 LTS is at https://nodejs.org; with nvm or fnm, run 'nvm use' here." ;;
+    "Use Node $known_majors_prose. Node 24 LTS is at https://nodejs.org; with nvm or fnm, run 'nvm use' here." ;;
 esac
 
 command -v git >/dev/null 2>&1 && pass "git $(git --version | cut -d' ' -f3)" \
   || fail "git is not installed" "Install it from https://git-scm.com and open a new terminal."
 
-[ -d node_modules ] && pass "Dependencies installed" \
-  || fail "Dependencies are not installed" "Run: npm install"
+if [ -d node_modules ]; then
+  pass "Dependencies installed"
+elif $check_only; then
+  fail "Dependencies are not installed" "Run: ./setup"
+else
+  printf 'pass  installing dependencies...\n'
+  npm install --silent
+  pass "Dependencies installed"
+fi
 
-[ -f .env ] || fail "No .env file" "Run: cp .env.example .env — then paste your key from https://openrouter.ai/keys into it."
-
-grep -q '^OPENROUTER_API_KEY=sk-' .env && pass "OpenRouter key present" \
-  || fail "No OpenRouter key in .env" "Get one at https://openrouter.ai/keys and set OPENROUTER_API_KEY=sk-... in .env"
+if grep -q '^OPENROUTER_API_KEY=sk-' .env 2>/dev/null; then
+  pass "OpenRouter key present"
+elif $check_only; then
+  fail "No OpenRouter key in .env" "Run ./setup in your terminal to paste one in."
+else
+  npx tsx scripts/set-key.ts
+fi
 
 grep -q '^OPENROUTER_MODEL=.' .env && pass "Model: $(sed -n 's/^OPENROUTER_MODEL=//p' .env)" \
   || fail "No model in .env" "Set OPENROUTER_MODEL in .env — .env.example has the default."
@@ -67,7 +84,7 @@ const message = body.error?.message ?? '';
 const status = body.error?.code ?? response.status;
 
 if (status === 401) fail('OpenRouter rejected the key', 'Check OPENROUTER_API_KEY in .env — the key is wrong or not yet active.');
-if (status === 429 && message.includes('free-models-per-min')) fail(`${model} is rate limited`, 'That is your own account\'s cap of 20 free requests a minute. Wait a minute and run ./env-check again.');
+if (status === 429 && message.includes('free-models-per-min')) fail(`${model} is rate limited`, 'That is your own account\'s cap of 20 free requests a minute. Wait a minute and run ./setup --check again.');
 if (status === 429) fail(`${model} is rate limited by its provider`, 'Only switching models clears that. Set OPENROUTER_MODEL=openai/gpt-5.6-luna in .env — it costs cents.');
 if (body.error || !response.ok) fail(`${model} returned ${status}`, message || 'Try again, or switch OPENROUTER_MODEL in .env.');
 

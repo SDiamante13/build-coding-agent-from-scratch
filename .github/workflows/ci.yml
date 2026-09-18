@@ -39,13 +39,13 @@ jobs:
             npx vitest run test/lesson-01-single-turn.test.ts
           fi
 
-      # No key in CI, so the furthest env-check can get is OpenRouter rejecting a bogus one —
+      # No key in CI, so the furthest setup --check can get is OpenRouter rejecting a bogus one —
       # which still runs every check before it, including the Node heredoc, on this platform.
-      - name: env-check
+      - name: setup --check
         run: |
           printf 'OPENROUTER_API_KEY=sk-or-ci-bogus\nOPENROUTER_MODEL=%s\n' \
             "$(sed -n 's/^OPENROUTER_MODEL=//p' .env.example)" > .env
-          if ${{ runner.os == 'Windows' && 'sh env-check' || './env-check' }} | tee env-check.out; then
-            echo "env-check should have stopped at the bogus key" && exit 1
+          if ${{ runner.os == 'Windows' && 'sh setup --check' || './setup --check' }} | tee setup-check.out; then
+            echo "setup --check should have stopped at the bogus key" && exit 1
           fi
-          grep -q 'OpenRouter rejected the key' env-check.out
+          grep -q 'OpenRouter rejected the key' setup-check.out
