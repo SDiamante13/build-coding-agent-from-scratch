@@ -31,8 +31,12 @@
   .screen {
     display: none;
     height: 100vh;
-    padding: 26px 48px 66px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: clamp(30px, 5.5vh, 62px) 48px 66px;
     flex-direction: column;
+    justify-content: center;
+    justify-content: safe center;
     overflow-y: auto;
   }
   .screen.on { display: flex; }
@@ -44,7 +48,7 @@
   h1 { font-size: clamp(23px, 2.9vw, 38px); margin: 4px 0 3px; line-height: 1.1; }
   .sub { color: var(--muted); font-size: clamp(13px, 1.35vw, 17px); margin: 0 0 12px; max-width: 84ch; }
 
-  figure { margin: 0; flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+  figure { margin: 0; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
   figure svg { width: 100%; max-height: 66vh; height: auto; display: block; }
   figcaption {
     margin-top: 12px; color: var(--muted); font-size: clamp(13px, 1.3vw, 16px);
@@ -68,7 +72,7 @@
   tr.finale td { background: #fff4ec; font-weight: 600; }
   tr.finale td.hurt { font-weight: 400; }
 
-  .cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; align-items: start; }
+  .cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; align-items: stretch; }
   .cols > * { min-width: 0; }
   .step { display: flex; gap: 12px; margin-bottom: 10px; }
   .step .num {
@@ -90,9 +94,11 @@
   .card li b { color: var(--text); font-weight: 600; }
   .cols.three { grid-template-columns: repeat(3, 1fr); }
   .cols.three .card { margin-bottom: 0; }
+  .cols > div { display: flex; flex-direction: column; }
+  .cols > div > .card:only-child { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   #intro { padding-top: 14px; padding-bottom: 58px; }
   #intro .sub { margin-bottom: 8px; }
-  #intro .cols { flex: 1; align-content: center; gap: 22px; }
+  #intro .cols { gap: 22px; }
   #intro .card { padding: clamp(14px, 2.2vh, 24px) clamp(18px, 2vw, 32px); }
   #intro .card h3 { font-size: clamp(18px, min(2.5vw, 3.9vh), 37px); margin-bottom: clamp(10px, 2.4vh, 30px); }
   #intro .card ul { padding-left: 22px; }
@@ -101,12 +107,10 @@
   .card a { color: var(--accent-2); font-weight: 700; text-underline-offset: 2px; }
   .card a.feedback { font-family: var(--mono); font-size: clamp(11.5px, 1.1vw, 14px); }
   #takeaways .card { padding: 11px 15px; }
-  #takeaways .cols { flex: 1; align-content: center; }
-  #start .card { padding: 10px 15px; margin-bottom: 7px; }
+  #start .card { padding: 10px 15px; margin-bottom: 5px; }
   .qr { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
   #takeaways .qr { max-width: clamp(140px, 24vh, 230px); margin-top: 12px; }
-  #about .cols, #course .cols { flex: 1; align-content: center; }
-  #course .cols { align-items: center; grid-template-columns: 1.5fr .75fr .75fr; gap: 18px; }
+  #course .cols { grid-template-columns: 1.5fr .75fr .75fr; gap: 18px; }
   #about .card, #course .card { padding: clamp(14px, 2.2vh, 24px) clamp(18px, 2vw, 32px); margin-bottom: 0; }
   #about .card h3, #course .card h3 { font-size: clamp(18px, min(2.5vw, 3.9vh), 37px); margin-bottom: 4px; }
   #about .card .role { font-size: clamp(13px, 1.4vw, 18px); color: var(--muted); margin-bottom: clamp(10px, 2.4vh, 24px); }
