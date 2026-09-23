@@ -9,6 +9,9 @@ interface KeyCheck {
   credit: string | null;
 }
 
+const ctrlC = '\u0003';
+const backspace = '\u007f';
+
 console.log('\nNeed a key? Create one at https://openrouter.ai/keys\n');
 const key = (await promptForKey()).trim();
 
@@ -41,8 +44,6 @@ async function promptPlain(query: string): Promise<string> {
   return answer;
 }
 
-const ctrlC = '';
-
 // No echo at all while typing — simplest way to keep the key off the screen.
 function promptHidden(query: string): Promise<string> {
   stdout.write(query);
@@ -55,7 +56,7 @@ function promptHidden(query: string): Promise<string> {
     const onData = (char: string): void => {
       if (char === '\n' || char === '\r') return finish(onData, resolve, value);
       if (char === ctrlC) process.exit(1);
-      value = char === '' || char === '\b' ? value.slice(0, -1) : value + char;
+      value = char === backspace || char === '\b' ? value.slice(0, -1) : value + char;
     };
     stdin.on('data', onData);
   });
