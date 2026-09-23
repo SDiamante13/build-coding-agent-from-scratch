@@ -108,6 +108,8 @@
   .card a.feedback { font-family: var(--mono); font-size: clamp(11.5px, 1.1vw, 14px); }
   #takeaways .card { padding: 11px 15px; }
   #start .card { padding: 10px 15px; margin-bottom: 5px; }
+  #start .cols > div:last-child .qr { max-width: clamp(110px, 17vh, 170px); }
+  #start .cols > div:last-child h3 { margin-bottom: 6px; }
   .qr { display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto; }
   #takeaways .qr { max-width: clamp(140px, 24vh, 230px); margin-top: 12px; }
   #course .cols { grid-template-columns: 1.5fr .75fr .75fr; gap: 18px; }
@@ -177,8 +179,9 @@
 
 <!-- 0 ─ about us -->
 <section class="screen on" id="about">
-  <div class="eyebrow">Who we are</div>
-  <h1>About us</h1>
+  <div class="eyebrow">Matt Wynne &amp; Steven Diamante · 23 Sept 2026</div>
+  <h1>Build a coding agent from scratch</h1>
+  <p class="sub">Ten lessons, no frameworks.</p>
 
   <div class="cols">
     <div class="card">
@@ -249,15 +252,12 @@
       </ul>
     </div>
   </div>
-
-  <p class="sub" style="margin: 9px 0 0">Setup is next, and the API key is the only slow part. Start it the moment it is on screen.</p>
 </section>
 
 <!-- 2 ─ start here -->
 <section class="screen" id="start">
-  <div class="eyebrow">Matt Wynne &amp; Steven Diamante · 23 Sept 2026</div>
-  <h1>Build a coding agent from scratch</h1>
-  <p class="sub">Ten lessons, no frameworks. Setting up takes about five minutes — do it now.</p>
+  <div class="eyebrow">Setup</div>
+  <h1>Start here</h1>
 
   <div class="cols">
     <div>
@@ -270,9 +270,9 @@ cd build-coding-agent-from-scratch
       </div>
 
       <div class="card hero">
-        <h3>2 · An OpenRouter key — the only slow part</h3>
-        <p>Partway through, <code>./setup</code> asks for a key. Paste in the one handed out for today — it's verified and saved to the gitignored <code>.env</code> for you. <b style="color:var(--accent)">Start this now</b> — everything else is one command.</p>
-        <p>Keeping the repo afterwards? Make your own at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">openrouter.ai/keys</a>. The default model runs the whole workshop for a few cents.</p>
+        <h3>2 · An OpenRouter key — we hand you one</h3>
+        <p>Partway through, <code>./setup</code> asks for a key. <b style="color:var(--accent)">Scan the lower QR</b> for today's shared key, paste it in, and setup verifies it and saves it to the gitignored <code>.env</code> for you.</p>
+        <p>Rather use your own? Make one at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">openrouter.ai/keys</a> — the default model runs the whole workshop for a few cents.</p>
       </div>
 
       <div class="card">
@@ -284,8 +284,15 @@ cd build-coding-agent-from-scratch
 
     <div>
       <div class="card" style="text-align: center">
+        <h3>The repo</h3>
         <img class="qr" src="qr-code.png" alt="QR code linking to the workshop repository" width="300" height="300">
         <p class="qr-url">github.com/SDiamante13/build-coding-agent-from-scratch</p>
+      </div>
+
+      <div class="card" style="text-align: center">
+        <h3>Today's OpenRouter key</h3>
+        <img class="qr" src="qr-code-open-router-key.png" alt="QR code linking to today's shared OpenRouter key" width="300" height="300">
+        <p class="qr-url"><a href="https://share.1password.com/s#_P_o6FQQ6cxYDK6FfNqfigBmjoTWrg-fNDrgLAjflUg" target="_blank" rel="noopener noreferrer">share.1password.com</a></p>
       </div>
     </div>
   </div>
